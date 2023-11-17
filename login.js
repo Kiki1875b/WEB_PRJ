@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById('login_form');
-    
+    const registerButton = document.getElementById('register_submit');
     loginForm.addEventListener('submit', function (event) {
       event.preventDefault();
       
@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', function () {
           console.log(data); // 서버 응답 출력 (로그인 성공 또는 실패 메시지)
         })
         .catch(error => console.error('Error:', error));
+    });
+
+    registerButton.addEventListener('click', function(){
+      window.location.href = '/register.html';
     });
   });
   

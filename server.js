@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // 정적 파일 제공 (login.html과 login.js)
 //app.use(express.static('public'));
-app.use(express.static('C:/xampp/htdocs/WEB'));
+app.use(express.static('C:/ww/WEB_PRJ'));
 
 // 로그인 요청 처리
 app.post('/login', (req, res) => {

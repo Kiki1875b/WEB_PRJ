@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script defer src="register.js"></script>
 </head>
 
@@ -16,12 +17,15 @@
     <input type="password" name="password" id="password_field" class="register_form_field" placeholder="Password">
     <input type="password" name="vpassword" id="vpassword_field" class="register_form_field" placeholder="Verify">
     <input type="text" name="phone_num" id="phoneNum_field" class="register_form_field" placeholder="phone number">
-    <input type="text" name="address" id="address_field" class="register_form_field" placeholder="address">
+    <input type="text" name="address" id="address_field" class="register_form_field" placeholder="address" readonly>
+    <input type="text" name="specific_addr" id="specific_address_field" class="register_form_field" placeholder="상세주소">
+    <input type="text" name="combined_address" id="combined_address_field" class="register_form_field" placeholder="전체 주소" readonly>
     <input type="text" name="email" id="email_field" class="register_form_field" placeholder="Email">
     <select name="sex" id="sex_field" class="register_form_field">
         <option value="M">Male</option>
         <option value="F">Female</option>
     </select>
+    <button type="button" id="register_submits">Register</button>
 
 </main>
 </body>

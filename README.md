@@ -24,3 +24,26 @@ CREATE TABLE USER (
 );
 
 프로젝트 저장된 폴더에서 터미널 열고 node server.js 입력 후, http://localhost:3000/login.html 접속
+
+===================================================================================================
+
+npm install multer 한 뒤 진행
+
+파일들 있는 폴더에 uploads 폴더 하나 생성 (차후 상품 업로드 할 때 사용할 사진들 들어갈 폴더)
+
+상품 sql
+
+CREATE TABLE ITEM (
+    IID INT AUTO_INCREMENT PRIMARY KEY,
+    IName VARCHAR(255),
+    ICost DECIMAL(10, 2),
+    Sale DECIMAL(5, 2),
+    ItemCount INT,
+    Category VARCHAR(255),
+    Color VARCHAR(255),
+    DeliveryInfo VARCHAR(255),
+    SoldCount INT,
+    ItemImage VARCHAR(255)
+);
+
+

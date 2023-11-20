@@ -1,6 +1,7 @@
 # WEB_PRJ
 
 node.js 다운받고
+<br>
 해당 폴더에 가서 터미널 열고
 nmp init
 control + c

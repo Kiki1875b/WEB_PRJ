@@ -20,17 +20,33 @@ document.addEventListener('DOMContentLoaded', function () {
         }).open();
     }
 
+
+
     registerButton.addEventListener('click', function (event) {
         
-        event.preventDefault();
+            
         const username = userID.value;
         const password = password_a.value;
+        const check_password = password_b.value;
         const phoneNum = phone_number.value;
         const address = addressField.value + " " + specific_addressField.value;
         const temail = email.value;
         const tsex = sex.value;
         
         console.log(address);
+
+        if (password !== check_password) {
+            // 팝업 창 띄우기
+            alert('비밀번호와 확인 비밀번호가 일치하지 않습니다.');
+            return;
+        }
+
+        if(!isValidPhoneNum(phoneNum)) {
+            alert('올바른 휴대폰 번호를 입력하세요.');
+            return;
+        }
+
+        if(phoneNum)
 
         fetch('/register', {
             method: 'POST',
@@ -51,3 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     addressField.addEventListener('click', openAddressPopup);
 });
+
+function isValidPhoneNum(phoneNum){
+    return /^010\d{8}$/.test(phoneNum);
+}

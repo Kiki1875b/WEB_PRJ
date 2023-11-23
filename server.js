@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('mysql');
+const multer= require('multer');
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -23,6 +24,19 @@ db.connect((err) => {
 });
 
 
+const storage = multer.diskStorage({
+  destination: function(req, file, cb){
+    cb(null, 'uploads/');
+  },
+  filename: function(req, file, cb){
+    cb(null, Date.now() + '-' + file.originalname);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1024 * 1024 * 5 }, // Adjust the file size limit as needed
+});
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -73,6 +87,39 @@ app.post('/register',(req,res)=> {
   });
 
 });
+
+app.post('/upload', upload.array('item_image'), (req, res) => {
+  const {
+    item_name,
+    item_cost,
+    item_sale,
+    item_count,
+    item_category,
+    item_color,
+    delivery_info,
+  } = req.body;
+
+  const images= req.files;
+
+  const imagePaths = images.map(image => image.path);
+
+  const imagePath = imagePaths.join(',');
+  const query = 'INSERT INTO ITEM (IName, ICost, Sale, ItemCount, Category, Color, DeliveryInfo, SoldCount, ItemImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  
+  db.query(
+    query,
+    [item_name, item_cost, item_sale, item_count, item_category, item_color, delivery_info, 0, imagePath],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+      } else {
+        res.status(200).send('Data Inserted');
+      }
+    }
+  );
+});
+
 
 app.use(express.static('C:/Workspace/WEB_PRJ'));
 

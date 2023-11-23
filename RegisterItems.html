@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Item</title>
+    <script defer src="registerItems.js"></script>
+</head>
+
+<body>
+<main id="main_holder">
+    <h1 id="register_item_header">Register Item</h1>
+    <input type="text" name="item_name" id="item_name_field" class="register_item" placeholder="상품 이름">
+    <input type="number" name="item_cost" id="item_cost_field" class="register_item" placeholder="상품 가격">
+    <input type="number" name="item_sale" id="item_sale_field" class="register_item" placeholder="세일 정보">
+    <input type="number" name="item_count" id="item_count_field" class="register_item" placeholder="상품 수량">
+    <input type="text" name="item_category" id="item_category_field" class="register_item" placeholder="카테고리">
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="imageUpload">이미지를 선택하시오: </label>
+        <input type="file" name="item_image" id="item_image_field" class="register_item" accept="image/*" multiple>
+    </form>
+
+    <input type="text" name="item_color" id="item_color_field" class="register_item" placeholder="색상">
+    <input type="text" name="delivery_info" id="delivery_info_field" class="register_item" placeholder="배송정보">
+    <button type="button" id="submit_item_info">Register</button>
+
+</main>
+</body>

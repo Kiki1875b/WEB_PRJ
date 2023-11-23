@@ -2,6 +2,9 @@ const express = require('express');
 const mysql = require('mysql');
 const multer= require('multer');
 const bodyParser = require('body-parser');
+const fs = require('fs');
+const path = require('path');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const port = 3000;
@@ -23,10 +26,20 @@ db.connect((err) => {
   console.log('Connected to MySQL database');
 });
 
-
+//파일 저장 위치
 const storage = multer.diskStorage({
   destination: function(req, file, cb){
-    cb(null, 'uploads/');
+    try{
+    const folderName = req.body.item_name;
+    const folderPath = `uploads/${folderName}`;
+
+    fs.mkdirSync(folderPath, { recursive: true }); // Create folder if it doesn't exist
+
+    cb(null, folderPath);
+    }catch(err){
+      console.lo.error("Error during folder", err);
+      cb(err,null);
+    }
   },
   filename: function(req, file, cb){
     cb(null, Date.now() + '-' + file.originalname);
@@ -40,10 +53,16 @@ const upload = multer({
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(bodyParser.json());
+app.use(cookieParser());
 // 정적 파일 제공 (login.html과 login.js)
 //app.use(express.static('public'));
 
+app.use((req, res, next) => {
+  const isLoggedIn = req.cookies.isLoggedIn === 'true';
+  req.isLoggedIn = isLoggedIn;
+  next();
+});
 
 // 로그인 요청 처리
 app.post('/login', (req, res) => {
@@ -56,14 +75,33 @@ app.post('/login', (req, res) => {
     if (err) throw err;
 
     if (result.length > 0) {
-      res.send('로그인 성공!');
+      res.cookie('isLoggedIn', 'true', { maxAge: 60 * 60 * 1000 }); 
+      res.cookie('username', username, {maxAge: 60 * 60 * 1000}); 
+      res.send(true);
     } else {
-      res.send('로그인 실패. 사용자 정보를 확인하세요.');
+      res.send(false);
     }
   });
 });
 
+app.post('/check', (req, res) => {
+  console.log('Received a request to /check');
+  const isLoggedIn = req.cookies.isLoggedIn === 'true';
+  if (!isLoggedIn) {
+    res.json({
+      status: false,
+    });
+    return;
+  } else {
+    res.json({
+      status: true,
+      uname: req.cookies.username,
+    });
+    return;
+  }
+});
 
+//사용자 회원가입
 app.post('/register',(req,res)=> {
   const{username, password, phoneNum, address, email, sex} = req.body;
   const insertQuery = 'INSERT INTO USER (UID, PWD, phone_num, Address, Email, `Register Date`, Sex) VALUES (?, ?, ?, ?, ?, CURDATE(), ?)';
@@ -88,11 +126,11 @@ app.post('/register',(req,res)=> {
 
 });
 
+//상품 등록
 app.post('/upload', upload.array('item_image'), (req, res) => {
   const {
     item_name,
     item_cost,
-    item_sale,
     item_count,
     item_category,
     item_color,
@@ -104,11 +142,11 @@ app.post('/upload', upload.array('item_image'), (req, res) => {
   const imagePaths = images.map(image => image.path);
 
   const imagePath = imagePaths.join(',');
-  const query = 'INSERT INTO ITEM (IName, ICost, Sale, ItemCount, Category, Color, DeliveryInfo, SoldCount, ItemImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  const query = 'INSERT INTO ITEM (IName, ICost, ItemCount, Category, Color, DeliveryInfo, SoldCount, ItemImage) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)';
   
   db.query(
     query,
-    [item_name, item_cost, item_sale, item_count, item_category, item_color, delivery_info, 0, imagePath],
+    [item_name, item_cost, item_count, item_category, item_color, delivery_info, 0, imagePath],
     (err, result) => {
       if (err) {
         console.error(err);
@@ -119,6 +157,100 @@ app.post('/upload', upload.array('item_image'), (req, res) => {
     }
   );
 });
+
+
+//이미지 가져오기
+app.get('/images', async (req, res) => {
+  const uploadPath = path.join(__dirname, 'uploads');
+
+  try {
+    const folders = await fs.promises.readdir(uploadPath);
+    console.log(folders);
+
+    const imagePromises = folders.map(async (folder) => {
+      const folderPath = path.join(uploadPath, folder);
+      const files = await fs.promises.readdir(folderPath);
+
+      if (files.length > 0) {
+        const firstImage = files[0];
+        const imagePath = path.join('uploads', folder, firstImage);
+        // 아이템 아이디 쿼리
+        const query = `SELECT IID FROM ITEM WHERE ItemImage LIKE "%${firstImage}%"`;
+
+        return new Promise((resolve, reject) => {
+          db.query(query, (err, result) => {
+            if (err) {
+              reject(err);
+            } else {
+              console.log(firstImage);
+              console.log(result[0].IID);
+              resolve({ path: imagePath, alt: folder, folderPath: folder, iID: result[0].IID });
+            }
+          });
+        });
+      }
+    });
+
+    const images = await Promise.all(imagePromises);
+
+    res.json(images);
+  } catch (err) {
+    console.error('Error reading folders or files:', err);
+    return res.status(500).send('Internal server error while fetching folders');
+  }
+});
+
+
+//상세정보
+
+app.get('/images/:folderPath', (req, res) => {
+  const decodedFolderPath = decodeURIComponent(req.params.folderPath);
+  const folderPath = path.join(__dirname, 'uploads', decodedFolderPath);
+  
+  fs.readdir(folderPath, (err, files) => {
+    if (err) {
+      console.error(`Error reading files in ${decodedFolderPath} folder:`, err);
+      return res.status(500).send('Internal Server Error');
+    }
+
+    const folderImages = files.map(file => ({
+      path: `/uploads/${decodedFolderPath}/${file}`,
+      alt: file
+    }));
+    res.json({
+      folderImages,
+    });
+  });
+});
+
+//카트에 추가
+app.post('/addToCartEndpoint', (req, res) => {
+  const { username, itemID } = req.body;
+
+  const checkQuery = 'SELECT * FROM cart WHERE UID="'+username+'" AND itemID="'+itemID;
+
+  db.query(checkQuery, (err, results) => {
+    if(err){
+      console.log(err);
+    }else{
+      console.log("query: ", results);
+    }
+  });
+
+  const query = 'INSERT INTO cart (UID, IID) VALUES (?, ?)';
+  console.log(username, itemID);
+  db.query(query, [username, itemID], (err, result) => {
+      if (err) {
+          console.error('Error adding item to cart:', err);
+          return res.status(500).json({ success: false, message: 'Internal Server Error' });
+      }
+
+      console.log('Item added to cart:', result);
+      res.json({ success: true, message: 'Item added to cart successfully' });
+  });
+});
+
+
 
 
 app.use(express.static('C:/ww/WEB_PRJ'));

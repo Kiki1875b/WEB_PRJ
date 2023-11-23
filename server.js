@@ -13,7 +13,7 @@ const port = 3000;
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'Gjwldnd!1',
+  password: 'wnddnjs1',
   database: 'STATIONARY_STORE'
 });
 
@@ -159,6 +159,7 @@ app.post('/upload', upload.array('item_image'), (req, res) => {
 });
 
 
+<<<<<<< HEAD
 //이미지 가져오기
 app.get('/images', async (req, res) => {
   const uploadPath = path.join(__dirname, 'uploads');
@@ -254,6 +255,9 @@ app.post('/addToCartEndpoint', (req, res) => {
 
 
 app.use(express.static('C:/ww/WEB_PRJ'));
+=======
+app.use(express.static('C:/Workspace/WEB_PRJ'));
+>>>>>>> 41d6f0682777adcf3bb01d7cdd07cbd0f3736b8d
 
 // 서버 시작
 app.listen(port, () => {

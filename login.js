@@ -17,7 +17,12 @@ document.addEventListener('DOMContentLoaded', function () {
       })
         .then(response => response.text())
         .then(data => {
-          console.log(data); // 서버 응답 출력 (로그인 성공 또는 실패 메시지)
+          if(data == "true"){
+            window.location.href='/MainPage.html';
+          } // 서버 응답 출력 (로그인 성공 또는 실패 메시지)
+          else{
+            alert("아이디/비밀번호가 틀렸습니다");
+          }
         })
         .catch(error => console.error('Error:', error));
     });

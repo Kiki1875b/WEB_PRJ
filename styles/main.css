@@ -1,0 +1,146 @@
+.morning-glory-style{
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+}
+
+.new-product-btn-style{
+    position: relative;
+    width: 96px;
+    height: 37px;
+    left: 80px;
+    bottom: 5px;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-EGH.png');
+    border-radius: 3rem; 
+}
+
+.popular-products-btn-style{
+    position: relative;
+    width: 96px;
+    height: 37px;
+    left: 100px;
+    bottom: 5px;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-giD.png');
+    border-radius: 3rem;
+}
+
+.category-btn-style{
+    position: relative;
+    width: 96px;
+    height: 37px;
+    left: 120px;
+    bottom: 5px;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-EGH.png');
+    border-radius: 3rem;
+}
+
+.search-style{
+    display: inline-block;
+    position: relative;
+    width: 350px;
+    left: 140px;
+    bottom: 5px;
+}
+
+.search-text-style{
+    width: 100%;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    outline: solid #FEC42E;
+}
+
+.search-btn-style{
+    display: inline-block;
+    position : relative;
+    width: 23px;
+    top: 6px;
+    left: 170px;
+}
+
+.announcement-btn-style{
+    position: relative;
+    width: 96px;
+    height: 37px;
+    left: 180px;
+    bottom: 5px;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-EGH.png');
+    border-radius: 3rem;
+}
+
+.shopping-basket-btn-style{
+    position: relative;
+    width: 96px;
+    height: 37px;
+    left: 200px;
+    bottom: 5px;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-giD.png');
+    border-radius: 3rem;
+}
+
+.login-btn-style{
+    position: relative;
+    width: 96px;
+    height: 37px;
+    left: 220px;
+    bottom: 5px;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-EGH.png');
+    border-radius: 3rem;
+}
+
+.contents-new-product-style{
+    background-color: rgba(254, 154, 46, 0.400000006);
+}
+
+.contents-new-product-one-style{
+    display: inline-block;
+    position: relative;
+    width: 243px;
+    height: 157px;
+    left: 5px; 
+    bottom: 5px;
+    
+}
+
+.contents-popular-products-style{
+    background-color: rgba(254, 195, 46, 0.400000006);
+}
+
+.contents-popular-products-one-style{
+    display: inline-block;
+    position: relative;
+    width: 243px;
+    height: 157px;
+    bottom: 5px;
+    left: 5px;
+}
+
+.bottombar-style{
+    display: flex;
+    font-size: 2rem;
+    color: #000000;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    align-items: center;
+    justify-content: center;
+    background-color: #f6f6f6;
+}

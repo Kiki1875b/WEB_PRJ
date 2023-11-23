@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     submitButton.addEventListener('click', function(){
         const itemName = document.getElementById('item_name_field').value;
         const itemCost = document.getElementById('item_cost_field').value;
-        const itemSale = document.getElementById('item_sale_field').value;
+       
         const itemCount = document.getElementById('item_count_field').value;
         const itemCategory = document.getElementById('item_category_field').value;
         const itemColor = document.getElementById('item_color_field').value;
@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const formData = new FormData();
         formData.append('item_name', itemName);
         formData.append('item_cost', itemCost);
-        formData.append('item_sale', itemSale);
         formData.append('item_count', itemCount);
         formData.append('item_category', itemCategory);
         formData.append('item_color', itemColor);
@@ -27,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
             formData.append('item_image', file);
         }
 
-        console.log(formData);
 
         fetch('/upload', {
             method: 'POST',

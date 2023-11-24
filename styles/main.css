@@ -111,28 +111,73 @@
 .contents-new-product-style{
     background-color: rgba(254, 154, 46, 0.400000006);
 }
+.contents-new-product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
-.contents-new-product-one-style{
+.contents-new-product-one-style {
+    flex: 0 0 auto;
+    max-width: 200px;
     display: inline-block;
     position: relative;
-    width: 243px;
-    height: 157px;
-    left: 5px; 
-    bottom: 5px;
-    
+    margin: 10px;
+    box-sizing: border-box;
+    background-color: #c2bcaa;
+    border: 1px solid #ccc;
+    border-radius: 10px; /* 모서리를 10px로 둥글게 만듭니다. */
+    overflow: hidden; /* 모서리 부분이 텍스트나 이미지를 넘어가지 않도록 합니다. */
 }
+
+.contents-new-product-container-border {
+    border: none; /* 부모 컨테이너에 border 추가 */
+}
+
+.contents-new-product-one-style img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    vertical-align: top;
+}
+
+.contents-new-product-one-style .text-container {
+    margin-left: 5px; /* 텍스트를 오른쪽으로 5px 이동 */
+}
+
 
 .contents-popular-products-style{
     background-color: rgba(254, 195, 46, 0.400000006);
 }
 
+.contents-popular-products-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .contents-popular-products-one-style{
+    flex: 0 0 auto;
+    max-width: 200px;
     display: inline-block;
     position: relative;
-    width: 243px;
-    height: 157px;
-    bottom: 5px;
-    left: 5px;
+    margin: 10px;
+    box-sizing: border-box;
+    background-color: #c2bcaa;
+    border: 1px solid #ccc;
+    border-radius: 10px; /* 모서리를 10px로 둥글게 만듭니다. */
+    overflow: hidden; /* 모서리 부분이 텍스트나 이미지를 넘어가지 않도록 합니다. */
+}
+
+.contents-popular-product-container-border{
+    border: none;
+}
+
+.contents-popular-products-one-style img{
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    vertical-align: top;
 }
 
 .bottombar-style{

@@ -2,35 +2,87 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('images')
     .then(response => response.json())
     .then(images => {
-        const imageContainers = document.getElementById('imageContainer');
-        console.log(images.length);
+        const contentsNewProductContainer = document.querySelector('.contents-new-product-container');
+
         images.forEach(image => {
+            const container = document.createElement('div');
+            container.classList.add('contents-new-product-one-style', 'contents-new-product-container-border');
+
             const imgElement = document.createElement('img');
             imgElement.src = image.path;
             imgElement.alt = image.alt;
-            console.log(image.folderPath);
-            const detailsButton = document.createElement('button');
-            detailsButton.textContent = '상세정보';
-            detailsButton.addEventListener('click', function () {
+
+            const textContainer = document.createElement('div');
+            textContainer.classList.add('text-container');
+            const textLine1 = document.createElement('div');
+            const textLine2 = document.createElement('div');
+
+            textLine1.textContent = image.itemName;
+            textLine2.textContent = image.itemCost + '원';
+
+            textContainer.appendChild(textLine1);
+            textContainer.appendChild(textLine2);
+
+            container.appendChild(imgElement);
+            container.appendChild(textContainer);
+
+            container.addEventListener('click', () => {
                 
                 showDetailedInformation(image.folderPath, image.iID);
             });
 
-            const imageDiv = document.createElement('div');
-            imageDiv.appendChild(imgElement);
-            imageDiv.appendChild(detailsButton);
-            imageContainers.appendChild(imageDiv);
+            contentsNewProductContainer.appendChild(container);
         });
+        return fetch('popular');
     })
-    .catch(error => console.error("Error fetching images t:", error))
+    .then(response => response.json())
+    .then(images => {
+        console.log(images);
+        const contentsPopularProductContainer = document.querySelector('.contents-popular-product-container');
+        images.forEach(image =>{
+            if (Object.keys(image).length === 0 && image.constructor === Object) {
+                return;
+            }
+            const container = document.createElement('div');
+            container.classList.add('contents-popular-products-one-style', 'contents-popular-product-container-border');
+            
+            const imgElement = document.createElement('img');
+            imgElement.src = image.path;
+            imgElement.alt = image.alt;
+
+            
+
+            const textContainer = document.createElement('div');
+            textContainer.classList.add('text-container');
+            const textLine1 = document.createElement('div');
+            const textLine2 = document.createElement('div');
+
+            textLine1.textContent = image.itemName;
+            textLine2.textContent = image.itemCost + '원';
+
+            textContainer.appendChild(textLine1);
+            textContainer.appendChild(textLine2);
+
+            container.appendChild(imgElement);
+            container.appendChild(textContainer);
+
+            container.addEventListener('click', () => {
+                showDetailedInformation(image.folderPath, image.iID);
+            });
+            
+            contentsPopularProductContainer.appendChild(container);
+            console.log(container);
+        });     
+    })
+    .catch(error => console.error("Error fetching imgs:", error));
 
     function showDetailedInformation(folderPath, itemID) {
         const currentUrl = window.location.href;
 
-        // 새로운 페이지 URL을 생성합니다. 이미 존재하는 파라미터가 있다면 '&'를 사용하고, 그렇지 않으면 '?'를 사용합니다.
+        
         const newUrl = 'specific_page.html' + (currentUrl.includes('?') ? '&' : '?') + `folderPath=${encodeURIComponent(folderPath)}&IID=${encodeURIComponent(itemID)}`;
     
-        // 새로운 페이지를 엽니다.
+
         const popup = window.open(newUrl, '_blank');
         setTimeout(() =>{
         fetch(`/images/${encodeURIComponent(folderPath)}`)
@@ -45,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
             popup.location.href = newUrl;
             popup.document.write('<html><head><title>Detailed Information</title></head><body>');
             popup.document.write('<h1> Detailed Information</h1>');
-            popup.document.write('<div class="popup" style="text-align: left;">'); // Set text-align to left
+            popup.document.write('<div class="popup" style="text-align: left;">'); 
             
             
 
@@ -114,15 +166,15 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => {
             if (response.ok) {
-                return response.json(); // Parse the response as JSON
+                return response.json(); 
             } else {
                 throw new Error(`HTTP ERROR! STATUS: ${response.status}`);
             }
         })
         .then(result => {
-            // 서버에서 반환된 결과를 처리합니다.
+            
             console.log(result);
-            // 여기에 서버의 응답에 따른 로직을 추가할 수 있습니다.
+            
         })
         .catch(error => console.error("Error:", error));
     }

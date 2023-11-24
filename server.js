@@ -158,6 +158,9 @@ app.post('/upload', upload.array('item_image'), (req, res) => {
   );
 });
 
+  
+
+
 app.get('/images', async (req, res) => {
   const uploadPath = path.join(__dirname, 'uploads');
 
@@ -173,7 +176,7 @@ app.get('/images', async (req, res) => {
         const firstImage = files[0];
         const imagePath = path.join('uploads', folder, firstImage);
         // 아이템 아이디 쿼리
-        const query = `SELECT IID FROM ITEM WHERE ItemImage LIKE "%${firstImage}%"`;
+        const query = `SELECT IID, IName, ICost FROM ITEM WHERE ItemImage LIKE "%${firstImage}%"`;
 
         return new Promise((resolve, reject) => {
           db.query(query, (err, result) => {
@@ -182,7 +185,59 @@ app.get('/images', async (req, res) => {
             } else {
               console.log(firstImage);
               console.log(result[0].IID);
-              resolve({ path: imagePath, alt: folder, folderPath: folder, iID: result[0].IID });
+              resolve({ path: imagePath, alt: folder, folderPath: folder, iID: result[0].IID, itemName: result[0].IName, itemCost: result[0].ICost});
+            }
+          });
+        });
+      }
+    });
+
+    const images = await Promise.all(imagePromises);
+
+    res.json(images);
+  } catch (err) {
+    console.error('Error reading folders or files:', err);
+    return res.status(500).send('Internal server error while fetching folders');
+  }
+});
+
+
+app.get('/popular', async(req, res)=>{
+  const uploadPath = path.join(__dirname, 'uploads');
+  try {
+    const folders = await fs.promises.readdir(uploadPath);
+    console.log(folders);
+
+    const imagePromises = folders.map(async (folder) => {
+      const folderPath = path.join(uploadPath, folder);
+      const files = await fs.promises.readdir(folderPath);
+
+      if (files.length > 0) {
+        const firstImage = files[0];
+        const imagePath = path.join('uploads', folder, firstImage);
+        // 아이템 아이디 쿼리
+        const query = `SELECT IID, IName, ICost FROM ITEM WHERE ItemImage LIKE "%${firstImage}%" AND SoldCount > 50`;
+        console.log("BEF: ", query);
+
+        return new Promise((resolve, reject) => {
+          db.query(query, (err, result) => {
+            if (err) {
+              reject(err);
+            } else {
+              if (result.length > 0) {
+                resolve({
+                  path: imagePath,
+                  alt: folder,
+                  folderPath: folder,
+                  iID: result[0].IID,
+                  itemName: result[0].IName,
+                  itemCost: result[0].ICost
+                });
+              } else {
+                // 데이터가 없는 경우에 대한 처리
+                // 예: resolve에 빈 객체를 전달하거나 다른 기본값을 사용할 수 있습니다.
+                resolve({}); 
+              }
             }
           });
         });

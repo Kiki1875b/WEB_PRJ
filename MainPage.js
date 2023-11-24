@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const imgElement = document.createElement('img');
             imgElement.src = image.path;
             imgElement.alt = image.alt;
+            imgElement.style.cursor = 'pointer';
 
             const textContainer = document.createElement('div');
             textContainer.classList.add('text-container');
@@ -49,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const imgElement = document.createElement('img');
             imgElement.src = image.path;
             imgElement.alt = image.alt;
+            imgElement.style.cursor = 'pointer';
 
             
 
@@ -107,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const imgElement = popup.document.createElement('img');
                 imgElement.src = folderImage.path;
                 imgElement.alt = folderImage.alt;
+                
                 imgElement.width = 300;
                 imgElement.height = 300;
 

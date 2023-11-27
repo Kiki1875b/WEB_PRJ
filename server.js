@@ -85,7 +85,6 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/check', (req, res) => {
-  console.log('Received a request to /check');
   const isLoggedIn = req.cookies.isLoggedIn === 'true';
   if (!isLoggedIn) {
     res.json({
@@ -279,32 +278,115 @@ app.get('/images/:folderPath', (req, res) => {
 //카트에 추가
 app.post('/addToCartEndpoint', (req, res) => {
   const { username, itemID } = req.body;
-
+  var itemCount = 0;
+  const inDBQuery = 'SELECT ItemCount FROM cart WHERE UID="'+username+'" AND IID="'+itemID+'"';
   const checkQuery = 'SELECT * FROM cart WHERE UID="'+username+'" AND itemID="'+itemID;
 
-  db.query(checkQuery, (err, results) => {
+  db.query(inDBQuery, (err,results) => {
     if(err){
       console.log(err);
     }else{
-      console.log("query: ", results);
-    }
+      if(results.length > 0){
+        itemCount = results[0].ItemCount;
+
+        console.log(results);
+          
+        const query = 'UPDATE CART SET ItemCount='+(itemCount+1);
+        db.query(query,(err,result)=>{
+          if(err){
+            console.error(err);
+            return res.status(500).json({success: false});
+          }
+    
+          console.log('Item Successfully Updated');
+          res.json({success: true});
+          });
+
+        }else if(results.length == 0){
+          const query = 'INSERT INTO cart (UID, IID, ItemCount) VALUES (?, ?, ?)';
+          db.query(query, [username, itemID, 1], (err, result) => {
+              if (err) {
+                  console.error('Error adding item to cart:', err);
+                  return res.status(500).json({ success: false, message: 'Internal Server Error' });
+              }
+              console.log('Item added to cart:', result);
+              res.json({ success: true, message: 'Item added to cart successfully' });
+          });
+        }
+      }
+      
+    });
   });
 
-  const query = 'INSERT INTO cart (UID, IID) VALUES (?, ?)';
-  console.log(username, itemID);
-  db.query(query, [username, itemID], (err, result) => {
-      if (err) {
-          console.error('Error adding item to cart:', err);
-          return res.status(500).json({ success: false, message: 'Internal Server Error' });
-      }
 
-      console.log('Item added to cart:', result);
-      res.json({ success: true, message: 'Item added to cart successfully' });
+app.post('/mypage', (req, res) => {
+  const query = 'SELECT phone_num, Address, Email, `Register Date` FROM user where (UID) = ?';
+  db.query(query, req.body.UID, (err, result) => {
+    if(err){
+      console.error('Error while fetching data', err);
+      return res.status(500).send('internal server error');
+    }
+
+    if (result.length > 0) {
+
+      const rawDate = result[0]['Register Date'];
+      const dateObject = new Date(rawDate);
+      const formattedDate = dateObject.toISOString().split('T')[0];
+
+      const userData = {
+        username: req.body.UID,
+        phone_num: result[0].phone_num,
+        address: result[0].Address,
+        email: result[0].Email,
+        registerDate: formattedDate,
+      };
+      
+      res.json(userData);
+    }
+    
   });
 });
 
+app.post('/cart', (req, res) => {
+  const query = 'SELECT IID FROM cart WHERE UID = (?)';
+  
+  console.log(req.body.UID);
+  db.query(query, req.body.UID, (err, results) => {
+    if(err){
+      console.error(err);
+      return res.status(500).send('internal server error');
+    }
 
+    let cartItems = [];
+    
 
+    if(results.length > 0){
+      cartItems = results.map(item => item.IID);
+      
+      const placeholders = cartItems.map(() => '?').join(',');
+
+      const pathQuery = `SELECT ItemImage FROM item WHERE IID IN (${placeholders})`;
+      console.log(placeholders);
+      
+      db.query(pathQuery, cartItems, (_err, result) => {
+        if(_err){
+          return res.status(500).send('internal server error');
+        }else{
+          console.log(result);
+          const extractedPaths = result.map(pathResult => {
+            const imagePath = pathResult.ItemImage;
+            const firstPart = imagePath.split(',')[0];
+            return firstPart;
+          });
+          console.log("EX:", extractedPaths);
+          res.json({ extractedPaths });
+        }
+      });
+    }else{
+      res.json({ extractedPaths:[] });
+    }
+  });
+});
 
 app.use(express.static('C:/ww/WEB_PRJ'));
 

@@ -5,6 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Page</title>
     <script defer src="MyPage.js"></script>
+    <style>
+        #imageContainer {
+            overflow: auto; /* Add overflow property to enable scrolling if the content exceeds the size limit */
+        }
+
+        #imageContainer img {
+            max-width: 200px;
+            max-height: 200px;
+            height: auto;
+        }
+    </style>
+    <link rel="stylesheet" href="./styles/main.css">
 </head>
 <h1 id="username"></h1>
+
+<div id="userInfoContainer">
+    <p><strong>Address:</strong> <span id="address"></span></p>
+    <p><strong>Phone Number:</strong> <span id="phoneNumber"></span></p>
+    <p><strong>Email:</strong> <span id="email"></span></p>
+    <p><strong>Register Date:</strong> <span id="registerDate"></span></p>
+</div>
+
+
+<div class="contents-new-product-style">
+    <div class="contents-temp-product-container">
+        <div class="contents-new-product-one-style" id="imageContainer">
+
+        </div>
+    </div>
+</div>
 <body>

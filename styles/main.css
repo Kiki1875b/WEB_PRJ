@@ -116,6 +116,32 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+.contents-temp-product-container {
+    justify-content: center;
+}
+
+.contents-temp-product-one-style {
+    flex: 0 0 auto;
+    max-width: 200px;
+    position: relative;
+    margin: 10px;
+    box-sizing: border-box;
+    background-color: #c2bcaa;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px; /* Adjusted margin for spacing between images */
+}
+
+
+.contents-temp-product-one-style img {
+    display: block; /* Ensure images are displayed as block-level elements */
+    margin-bottom: 20px; /* Adjusted margin for spacing between images */
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    border-radius: 10px;
+}
 
 .contents-new-product-one-style {
     flex: 0 0 auto;

@@ -49,6 +49,14 @@ CREATE TABLE ITEM (
     ItemImage VARCHAR(255)
 );
 <br><br>
+
+CREATE TABLE CART (
+  CartNumber INT AUTO_INCREMENT PRIMARY KEY,
+  UID VARCHAR(255),
+  IID INT,
+  FOREIGN KEY (UID) REFERENCES USER(UID),
+  FOREIGN KEY (IID) REFERENCES ITEM(IID)
+); <br><br>
 server.js 의 13번줄 바꾸기 <- 본인 비밀번호로
 <br>
 server.js 의 124번줄 바꾸기 <- 본인 프로젝트 경로로

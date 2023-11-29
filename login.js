@@ -1,3 +1,5 @@
+const loginErrorMsg = document.getElementById('login-error-msg');
+
 document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById('login_form');
     const registerButton = document.getElementById('register_submit');
@@ -21,7 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
             window.location.href='/main.html';
           } // 서버 응답 출력 (로그인 성공 또는 실패 메시지)
           else{
-            alert("아이디/비밀번호가 틀렸습니다");
+            // alert("아이디/비밀번호가 틀렸습니다");
+            loginErrorMsg.style.opacity = 1;
           }
         })
         .catch(error => console.error('Error:', error));

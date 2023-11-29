@@ -4,21 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/login.css">
     <title>Login</title>
     <script defer src="login.js"></script>
 </head>
 
 <body>
+    <img src="./assets/morning-glory-1.png" alt="morning-glory-logo" class="morning-glory-style">
 <main id="main_holder">
-    <h1 id="login_header">Login</h1>
+    <h1 id="login_header">로그인</h1>
 
     <form id="login_form">
-        <input type="text" name="username" id="username_field" class="login_form_field" placeholder="Username">
-        <input type="password" name="password" id="password_field" class="login_form_field" placeholder="Password">
-        <input type="submit" value="Login" id="login_form_submit">
-        <button type="button" id="register_submit">Register</button>
+        <div>
+            <p>아이디</p>
+            <input type="text" name="username" id="username_field" class="login_form_field" placeholder="Username">
+            <img src="./assets/id-logo.png" alt="id-logo" style="width: 24.75px; height: 24.75px;">
+        </div>
+        
+        <div>
+            <p>비밀번호</p>
+            <input type="password" name="password" id="password_field" class="login_form_field" placeholder="Password">
+            <img src="./assets/password-logo.png" alt="password-log" style="width: 24.75px; height: 24.75px;">
+        </div>
+        
+        <div id="login-error-msg">
+            <img src="./assets/Groupico_login_caution.png" alt="alert-logo">
+            <p>아이디/비밀번호가 틀렸습니다</p>
+        </div>
+
+        <input type="submit" value="로그인" id="login_form_submit">
+        <button type="button" id="register_submit">회원가입</button>
     </form>
 
 </main>
+    <div class="bottombar-style">2023 WEB SW Studio and Talent Donation</div>
 </body>
 </html>

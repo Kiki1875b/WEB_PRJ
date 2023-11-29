@@ -13,7 +13,7 @@ const port = 3000;
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'Gjwldnd!1',
+  password: 'wnddnjs1',
   database: 'STATIONARY_STORE'
 });
 
@@ -446,7 +446,7 @@ app.get('/search', (req, res) => {
 });
 });
 
-app.use(express.static('C:/ww/WEB_PRJ'));
+app.use(express.static('C:/Workspace/WEB_PRJ'));
 
 
 // 서버 시작

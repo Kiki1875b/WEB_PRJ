@@ -119,7 +119,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const addToCartButton = popup.document.createElement('button');
             addToCartButton.textContent = 'Add to Cart';
 
+            const quantityInput = popup.document.createElement('input');
+            quantityInput.type = 'number';
+            quantityInput.min = '1';
+            quantityInput.value = '1'; // You can set a default value if needed
+
+
             addToCartButton.addEventListener('click', function() {
+                const quantity = parseInt(quantityInput.value, 10); 
+
+                if (isNaN(quantity) || quantity <= 0) {
+                    popup.alert('Please enter a valid quantity.');
+                    return;
+                }
                 fetch('check', {
                     method: 'POST',
                 })
@@ -135,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (data.status === true) {
                         
                         console.log("username: ", data.username);
-                        addToCart(data.uname, itemID);
+                        addToCart(data.uname, itemID, quantity);
                     } else {
                         popup.alert("must be logged in");
                     }
@@ -143,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 .catch(error => console.error("CURRENT: ", error));
 
             });
+            popup.document.body.appendChild(quantityInput);
             popup.document.body.appendChild(addToCartButton);
             popup.document.body.appendChild(container);
             popup.document.write('</div></body></html>');
@@ -152,10 +165,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
     }
 
-    function addToCart(username, itemID){
+    function addToCart(username, itemID, quantity){
         const data = {
             username: username,
-            itemID: itemID
+            itemID: itemID,
+            quantity: quantity
         };
 
         console.log(username, data.itemID);

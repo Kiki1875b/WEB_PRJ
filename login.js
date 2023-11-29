@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => response.text())
         .then(data => {
           if(data == "true"){
-            window.location.href='/MainPage.html';
+            window.location.href='/main.html';
           } // 서버 응답 출력 (로그인 성공 또는 실패 메시지)
           else{
             // alert("아이디/비밀번호가 틀렸습니다");

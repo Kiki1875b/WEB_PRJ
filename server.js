@@ -85,7 +85,6 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/check', (req, res) => {
-  console.log('Received a request to /check');
   const isLoggedIn = req.cookies.isLoggedIn === 'true';
   if (!isLoggedIn) {
     res.json({
@@ -166,7 +165,6 @@ app.get('/images', async (req, res) => {
 
   try {
     const folders = await fs.promises.readdir(uploadPath);
-    console.log(folders);
 
     const imagePromises = folders.map(async (folder) => {
       const folderPath = path.join(uploadPath, folder);
@@ -183,8 +181,7 @@ app.get('/images', async (req, res) => {
             if (err) {
               reject(err);
             } else {
-              console.log(firstImage);
-              console.log(result[0].IID);
+
               resolve({ path: imagePath, alt: folder, folderPath: folder, iID: result[0].IID, itemName: result[0].IName, itemCost: result[0].ICost});
             }
           });
@@ -206,7 +203,7 @@ app.get('/popular', async(req, res)=>{
   const uploadPath = path.join(__dirname, 'uploads');
   try {
     const folders = await fs.promises.readdir(uploadPath);
-    console.log(folders);
+  
 
     const imagePromises = folders.map(async (folder) => {
       const folderPath = path.join(uploadPath, folder);
@@ -217,7 +214,7 @@ app.get('/popular', async(req, res)=>{
         const imagePath = path.join('uploads', folder, firstImage);
         // 아이템 아이디 쿼리
         const query = `SELECT IID, IName, ICost FROM ITEM WHERE ItemImage LIKE "%${firstImage}%" AND SoldCount > 50`;
-        console.log("BEF: ", query);
+
 
         return new Promise((resolve, reject) => {
           db.query(query, (err, result) => {
@@ -278,31 +275,134 @@ app.get('/images/:folderPath', (req, res) => {
 
 //카트에 추가
 app.post('/addToCartEndpoint', (req, res) => {
-  const { username, itemID } = req.body;
-
+  const { username, itemID, quantity } = req.body;
+  var itemCount = 0;
+  const inDBQuery = 'SELECT ItemCount FROM cart WHERE UID="'+username+'" AND IID="'+itemID+'"';
   const checkQuery = 'SELECT * FROM cart WHERE UID="'+username+'" AND itemID="'+itemID;
 
-  db.query(checkQuery, (err, results) => {
+  db.query(inDBQuery, (err,results) => {
     if(err){
       console.log(err);
     }else{
-      console.log("query: ", results);
-    }
+      if(results.length > 0){
+        itemCount = results[0].ItemCount;
+
+        console.log(results);
+        
+        const query = 'UPDATE CART SET ItemCount='+(itemCount+quantity) +' WHERE IID="'+itemID+'"';
+        db.query(query,(err,result)=>{
+          if(err){
+            console.error(err);
+            return res.status(500).json({success: false});
+          }
+    
+          console.log('Item Successfully Updated');
+          res.json({success: true});
+          });
+
+        }else if(results.length == 0){
+          const query = 'INSERT INTO cart (UID, IID, ItemCount) VALUES (?, ?, ?)';
+          db.query(query, [username, itemID, quantity], (err, result) => {
+              if (err) {
+                  console.error('Error adding item to cart:', err);
+                  return res.status(500).json({ success: false, message: 'Internal Server Error' });
+              }
+              console.log('Item added to cart:', result);
+              res.json({ success: true, message: 'Item added to cart successfully' });
+          });
+        }
+      }
+      
+    });
   });
 
-  const query = 'INSERT INTO cart (UID, IID) VALUES (?, ?)';
-  console.log(username, itemID);
-  db.query(query, [username, itemID], (err, result) => {
-      if (err) {
-          console.error('Error adding item to cart:', err);
-          return res.status(500).json({ success: false, message: 'Internal Server Error' });
-      }
 
-      console.log('Item added to cart:', result);
-      res.json({ success: true, message: 'Item added to cart successfully' });
+app.post('/mypage', (req, res) => {
+  const query = 'SELECT phone_num, Address, Email, `Register Date` FROM user where (UID) = ?';
+  db.query(query, req.body.UID, (err, result) => {
+    if(err){
+      console.error('Error while fetching data', err);
+      return res.status(500).send('internal server error');
+    }
+
+    if (result.length > 0) {
+
+      const rawDate = result[0]['Register Date'];
+      const dateObject = new Date(rawDate);
+      const formattedDate = dateObject.toISOString().split('T')[0];
+
+      const userData = {
+        username: req.body.UID,
+        phone_num: result[0].phone_num,
+        address: result[0].Address,
+        email: result[0].Email,
+        registerDate: formattedDate,
+      };
+      
+      res.json(userData);
+    }
+    
   });
 });
 
+app.post('/cart', (req, res) => {
+  const query = 'SELECT IID, ItemCount, CartNumber FROM cart WHERE UID = (?)';
+
+  db.query(query, req.body.UID, (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('internal server error');
+    }
+
+    let cartItems = [];
+
+    if (results.length > 0) {
+      cartItems = results.map(item => ({ IID: item.IID, ItemCount: item.ItemCount, CartNumber: item.CartNumber}));
+
+      const placeholders = cartItems.map(() => '?').join(',');
+
+      const pathQuery = `SELECT IID, ItemImage, ICost FROM item WHERE IID IN (${placeholders})`;
+
+      db.query(pathQuery, cartItems.map(item => item.IID), (_err, result) => {
+        if (_err) {
+          return res.status(500).send('internal server error');
+        } else {
+          
+          const extractedPaths = result.map(pathResult => {
+            const matchedItem = cartItems.find(item => item.IID === pathResult.IID);
+            const imagePath = pathResult.ItemImage;
+            const firstPart = imagePath.split(',')[0];
+            return { 
+              ItemID: matchedItem.IID,
+              CartNum: matchedItem.CartNumber,
+              ItemCount: matchedItem.ItemCount, 
+              ItemImage: firstPart,
+              ICost: pathResult.ICost  
+            };
+          });
+          console.log("EXTRACTED: ", extractedPaths);
+          res.json({ extractedPaths });
+        }
+      });
+    } else {
+      res.json({ extractedPaths: [] });
+    }
+  });
+});
+
+
+app.post('/removeCart', (req, res) => {
+  const query = 'DELETE FROM cart WHERE CartNumber = ?';
+
+  db.query(query, [req.body.cartNumber], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ status: "error" });
+    } else {
+      res.json({ status: "success" });
+    }
+  });
+});
 
 
 

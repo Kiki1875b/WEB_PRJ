@@ -49,18 +49,22 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then(response => response.json())
     .then(data => {
+        let cartNumbers = [];
         const contentsNewProductContainer = document.querySelector('.contents-temp-product-container');
         let totalCost = 0;
+
         if(data.extractedPaths.length == 0) {
             const nth = document.createElement('div');
             nth.textContent = "NO ITEM IN CART";
             contentsNewProductContainer.appendChild(nth);
         };
-        
+
         if (data.extractedPaths && data.extractedPaths.length > 0) {
           data.extractedPaths.forEach(item => {
 
             console.log(item.CartNum);
+            cartNumbers.push(item.CartNum);
+
             const container = document.createElement('div');
             container.classList.add('contents-temp-product-one-style', 'contents-new-product-container-border');
     
@@ -97,6 +101,18 @@ document.addEventListener('DOMContentLoaded', () => {
             
             contentsNewProductContainer.appendChild(container);
           });
+
+
+        const orderButton = document.createElement('button');
+        orderButton.textContent = '주문';
+
+        orderButton.addEventListener('click', () => {
+            orderFromCart(cartNumbers);
+        });
+
+        contentsNewProductContainer.appendChild(orderButton);
+
+        
         
         const overallTotal = document.createElement('div');
         overallTotal.textContent = `Overall Total: ${totalCost}`;
@@ -126,8 +142,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.reload();
             }
         });
+      }
+
+      function orderFromCart(cartNums){
+        fetch('order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({cartNumbers: cartNums}),
+        })
+        .then(response => response.json())
+        .then(data =>{
+            if(data.status === "success"){
+                console.log('successfully ordered');
+            }
+        });
 
       }
     
+      
     
 });

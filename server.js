@@ -277,7 +277,7 @@ app.get('/images/:folderPath', (req, res) => {
 app.post('/addToCartEndpoint', (req, res) => {
   const { username, itemID, quantity } = req.body;
   var itemCount = 0;
-  const inDBQuery = 'SELECT ItemCount FROM cart WHERE UID="'+username+'" AND IID="'+itemID+'"';
+  const inDBQuery = 'SELECT ItemCount FROM cart WHERE UID="'+username+'" AND IID="'+itemID+'" AND OrderStatus = FALSE';
   const checkQuery = 'SELECT * FROM cart WHERE UID="'+username+'" AND itemID="'+itemID;
 
   db.query(inDBQuery, (err,results) => {
@@ -289,7 +289,7 @@ app.post('/addToCartEndpoint', (req, res) => {
 
         console.log(results);
         
-        const query = 'UPDATE CART SET ItemCount='+(itemCount+quantity) +' WHERE IID="'+itemID+'"';
+        const query = 'UPDATE CART SET ItemCount='+(itemCount+quantity) +' WHERE IID="'+itemID+'" AND OrderStatus = FALSE';
         db.query(query,(err,result)=>{
           if(err){
             console.error(err);
@@ -346,7 +346,7 @@ app.post('/mypage', (req, res) => {
 });
 
 app.post('/cart', (req, res) => {
-  const query = 'SELECT IID, ItemCount, CartNumber FROM cart WHERE UID = (?)';
+  const query = 'SELECT IID, ItemCount, CartNumber FROM cart WHERE UID = (?) AND OrderStatus = FALSE';
 
   db.query(query, req.body.UID, (err, results) => {
     if (err) {
@@ -404,7 +404,47 @@ app.post('/removeCart', (req, res) => {
   });
 });
 
+app.post('/order', (req, res) => {
+  const cartNumbers = req.body.cartNumbers;
+  const placeholders = cartNumbers.map(() => '?').join(',');
+  const query = `UPDATE cart SET OrderStatus = TRUE WHERE CartNumber IN (${placeholders})`;
 
+  db.query(query, cartNumbers, (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ status: 'error' });
+    } else {
+      res.json({ status: 'success' });
+    }
+  });
+});
+
+app.get('/search', (req, res) => {
+  
+  const query = `SELECT * FROM item WHERE IName LIKE '%${req.query.searchTerm}%' OR Category LIKE '%${req.query.searchTerm}%'`;
+
+  db.query(query, (err, result) => {
+    if(err){
+      res.status(500).json({ status : 'error' });
+    }else{
+      if (result.length > 0) {
+        const resultData = [];
+        result.forEach(item => {
+
+          const iid = item.IID;
+          const iName = item.IName;
+          const iCost = item.ICost;
+          const itemPath = item.ItemImage;
+          const firstPart = itemPath.split(',')[0];
+          console.log(`Item ID: ${firstPart}, Item Name: ${iName}, Item Cost: ${iCost}`);
+          resultData.push({ iid, iName, iCost, firstPart, });
+    });
+    console.log(resultData);
+    res.json({data: resultData});
+  }
+}
+});
+});
 
 app.use(express.static('C:/ww/WEB_PRJ'));
 

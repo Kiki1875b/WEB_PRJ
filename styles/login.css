@@ -1,0 +1,111 @@
+.morning-glory-style{
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+}
+
+#main_holder{
+    margin: 0 auto;
+    margin-bottom: 10px;
+    width: 424px;
+    /* height: 636px; */
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    /* background: rgba(0, 0, 0, 0.1); */
+    flex-direction: column;
+}
+
+#login_header{
+    color: #FEC42E;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    font-size: 42px;
+    padding: 10px;
+}
+
+p{
+    color: #8B8B8B;
+    font-size: 18px;
+}
+
+#username_field{
+    align-self: flex-start;
+    justify-items: center;
+    align-items: center;
+    /* color: #3a3a3a; */
+    border: none;
+    border-bottom: 1px solid #3a3a3a;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    outline: none;
+    padding: 0px 150px 5px 5px;
+}
+
+#password_field {
+    align-self: flex-start;
+    justify-items: center;
+    align-items: center;
+    /* color: #3a3a3a; */
+    border: none;
+    border-bottom: 1px solid #3a3a3a;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    outline: none;
+    padding: 0px 150px 5px 5px;
+}
+
+#login_form_submit{
+    width: 80%;
+    margin-top: 30px;
+    margin-left: 30px;
+    padding: 7px;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-weight: bold;
+    background-color: #FE9A2E;
+    cursor: pointer;
+    outline: none;
+}
+
+#register_submit{
+    width: 77px;
+    height: 24px;
+    margin-top: 30px;
+    margin-left: 125px;
+    border-radius: 25px;
+    font-weight: bold;
+    border-color: #FE9A2E;
+    background-color: white;
+    color: #FE9A2E;
+}
+
+#login-error-msg{
+    text-align: right;
+    opacity: 0;
+}
+
+#login-error-msg img{
+    width: 20.45px;
+    height: 20.45px;
+}
+
+#login-error-msg p{
+    display: inline-block;
+    margin: 0;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #B52257;
+}
+
+.bottombar-style{
+    display: flex;
+    font-size: 2rem;
+    color: #000000;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    align-items: center;
+    justify-content: center;
+    background-color: #f6f6f6;
+}

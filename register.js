@@ -2,7 +2,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const userID = document.getElementById('username_field');
     const password_a = document.getElementById('password_field');
     const password_b = document.getElementById('vpassword_field');
+    const passwordErrorMsg = document.getElementById('password-check-error-msg');
     const phone_number = document.getElementById('phoneNum_field');
+    const phone_numberErrorMsg = document.getElementById('phone_num-check-error-msg');
     const addressField = document.getElementById('address_field');
     const specific_addressField = document.getElementById('specific_address_field');
     const combinedAddressField = document.getElementById('combined_address_field');
@@ -37,13 +39,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (password !== check_password) {
             // 팝업 창 띄우기
-            alert('비밀번호와 확인 비밀번호가 일치하지 않습니다.');
+            // alert('비밀번호와 확인 비밀번호가 일치하지 않습니다.');
+            passwordErrorMsg.style.opacity = 1;
             return;
+        } else{
+            passwordErrorMsg.style.opacity = 0;
         }
 
         if(!isValidPhoneNum(phoneNum)) {
-            alert('올바른 휴대폰 번호를 입력하세요.');
+            // alert('올바른 휴대폰 번호를 입력하세요.');
+            phone_numberErrorMsg.style.opacity = 1;
             return;
+        } else {
+            phone_numberErrorMsg.style.opacity = 0;
         }
 
         if(phoneNum)
@@ -70,4 +78,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function isValidPhoneNum(phoneNum){
     return /^010\d{8}$/.test(phoneNum);
+}
+
+function chageImage(tt) {
+    document.getElementById(tt).style.backgroundImage = "url('../assets/on-eyes.png')";
 }

@@ -1,0 +1,289 @@
+.morning-glory-style{
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+}
+
+#main_holder{
+    margin: 0 auto;
+    margin-bottom: 10px;
+    width: 424px;
+    /* height: 936px; */
+    display: flex;
+    /* align-items: center; */
+    /* background: rgba(0, 0, 0, 0.1); */
+    flex-direction: column;
+}
+
+#login_header{
+    text-align: center;
+    color: #FEC42E;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    font-size: 42px;
+    padding: 10px;
+}
+
+#username_div_style{
+    align-self: flex-start;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#username_div_style p{
+    display: inline;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#username_div_style input {
+    display: block;
+    width: 200%;
+    height: 30%;
+    font-size: 13px;
+    outline: none;
+    border-radius: 20px;  
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px;
+    border-color: #D9D9D9;
+}
+
+#password_div_style {
+    align-self: flex-start;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#password_div_style p {
+    display: inline;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#password_div_style input {
+    display: block;
+    width: 200%;
+    height: 19%;
+    font-size: 13px;
+    outline: none;
+    border-radius: 20px;  
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px;
+    border-color: #D9D9D9;
+
+    background-image: url(../assets/off-eyes.png);
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 23px;
+}
+
+#password-check-error-msg {
+    opacity: 0;
+}
+
+#password-check-error-msg img {
+    width: 16px;
+    height: 16px;
+}
+
+#password-check-error-msg p{
+    display: inline-block;
+    margin: 0;
+    font-size: 13px;
+    font-weight: bold;
+    color: #B52257;
+}
+
+#phone_num_div_style {
+    align-self: flex-start;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#phone_num_div_style p {
+    display: inline;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#phone_num_div_style input {
+    display: block;
+    width: 180%;
+    height: 30%;
+    font-size: 13px;
+    outline: none;
+    border-radius: 20px;  
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px;
+    border-color: #D9D9D9;
+}
+
+#phone_num-check-error-msg {
+    opacity: 0;
+}
+
+#phone_num-check-error-msg img {
+    width: 16px;
+    height: 16px;
+}
+
+#phone_num-check-error-msg p{
+    display: inline-block;
+    margin-top: 10px;
+    margin: 0;
+    font-size: 13px;
+    font-weight: bold;
+    color: #B52257;
+}
+
+#address_div_style {
+    align-self: flex-start;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#address_div_style p {
+    display: inline;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#address_div_style input {
+    display: block;
+    width: 200%;
+    height: 14%;
+    font-size: 13px;
+    outline: none;
+    border-radius: 20px;  
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px;
+    border-color: #D9D9D9;
+}
+
+#email_div_style {
+    align-self: flex-start;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#email_div_style p {
+    display: inline;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#email_div_style input {
+    display: block;
+    width: 200%;
+    height: 30%;
+    font-size: 13px;
+    outline: none;
+    border-radius: 20px;  
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px;
+    border-color: #D9D9D9;
+}
+
+#sex_div_style {
+    align-self: flex-start;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#sex_div_style p {
+    display: inline;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#sex_div_style select {
+    display: block;
+    width: 235%;
+    height: 30%;
+    font-size: 13px;
+    outline: none;
+    border-radius: 20px;  
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px;
+    border-color: #D9D9D9;
+} 
+
+.check_wrap {
+    margin-bottom: 20px;
+}
+
+input#check_btn{
+    display:none;
+}
+  
+input#check_btn + label{
+    cursor:pointer;
+}
+  
+input#check_btn + label > span{
+    vertical-align: middle;
+    padding-left: 5px;
+}
+  
+  /* label:before에 체크하기 전 상태 CSS */
+input#check_btn + label:before{
+    content:"";
+    display:inline-block;
+    width:17px;
+    height:17px;
+    border:2px solid black;
+    border-radius: 4px;
+    vertical-align:middle;
+}
+    
+  /* label:before에 체크 된 상태 CSS */  
+input#check_btn:checked + label:before{
+    content:"";
+    background-size: 11px;
+    border-color:#FEC42E;
+    background-image: url(../assets/check-btn.png);
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+#register_submits {
+    border-radius: 3rem; 
+    width: 70%;;
+    height: 30%;
+    border: none;
+    background-color: white;
+    margin-left: 10%;
+}
+
+#register_submits img {
+    width: 100%;;
+    height: 100%;
+}
+
+.bottombar-style{
+    display: flex;
+    font-size: 2rem;
+    color: #000000;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    align-items: center;
+    justify-content: center;
+    background-color: #f6f6f6;
+}

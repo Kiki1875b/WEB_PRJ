@@ -4,28 +4,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/register.css">
     <title>Register</title>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script defer src="register.js"></script>
 </head>
 
 <body>
+    <img src="./assets/morning-glory-1.png" alt="morning-glory-logo" class="morning-glory-style">
+
 <main id="main_holder">
-    <h1 id="login_header">Register</h1>
+    <h1 id="login_header">회원가입</h1>
+    
+    <div id="username_div_style">
+        <div style="display: inline; color:#FEC42E">*</div>
+        <p>이름(아이디)</p>
+        <input type="text" name="username" id="username_field" class="register_form_field" placeholder="이름을 적어주세요">
+    </div>
+    
+    <div id="password_div_style">
+        <div style="display: inline; color:#FEC42E">*</div>
+        <p>비밀번호</p>
+        <input type="password" name="password" id="password_field" class="register_form_field" placeholder="비밀번호를 입력해주세요" onfocus="chageImage(this.id)">
+        <input type="password" name="vpassword" id="vpassword_field" class="register_form_field" placeholder="비밀번호 확인" onfocus="chageImage(this.id)">
+        <div id="password-check-error-msg">
+            <img src="./assets/Groupico_login_caution.png" alt="alert-logo">
+            <p>비밀번호가 일치하지 않습니다</p>
+        </div>
+    </div>
 
-    <input type="text" name="username" id="username_field" class="register_form_field" placeholder="Username">
-    <input type="password" name="password" id="password_field" class="register_form_field" placeholder="Password">
-    <input type="password" name="vpassword" id="vpassword_field" class="register_form_field" placeholder="Verify">
-    <input type="text" name="phone_num" id="phoneNum_field" class="register_form_field" placeholder="phone number">
-    <input type="text" name="address" id="address_field" class="register_form_field" placeholder="address" readonly>
-    <input type="text" name="specific_addr" id="specific_address_field" class="register_form_field" placeholder="상세주소">
-    <input type="text" name="combined_address" id="combined_address_field" class="register_form_field" placeholder="전체 주소" readonly>
-    <input type="text" name="email" id="email_field" class="register_form_field" placeholder="Email">
-    <select name="sex" id="sex_field" class="register_form_field">
-        <option value="M">Male</option>
-        <option value="F">Female</option>
-    </select>
-    <button type="button" id="register_submits">Register</button>
+    <div id="phone_num_div_style">
+        <div style="display: inline; color:#FEC42E">*</div>
+        <p>전화번호</p>
+        <input type="text" name="phone_num" id="phoneNum_field" class="register_form_field" placeholder="010-XXXX-XXXX">
+        <div id="phone_num-check-error-msg">
+            <img src="./assets/Groupico_login_caution.png" alt="alert-logo">
+            <p>올바른 휴대폰 번호를 입력하세요.</p>
+        </div>
+    </div>
+    
+    <div id="address_div_style">
+        <div style="display: inline; color:#FEC42E">*</div>
+        <p>주소</p>
+        <input type="text" name="address" id="address_field" class="register_form_field" placeholder="주소를 입력해주세요" readonly>
+        <input type="text" name="specific_addr" id="specific_address_field" class="register_form_field" placeholder="상세주소를 입력해주세요.">
+        <input type="text" name="combined_address" id="combined_address_field" class="register_form_field" placeholder="우편번호를 입력해주세요." readonly>
+    </div>
+    
+    <div id="email_div_style">
+        <p>이메일</p>
+        <input type="text" name="email" id="email_field" class="register_form_field" placeholder="이메일을 알려주세요">
+    </div>
 
+    <div id="sex_div_style">
+        <p>성별</p>
+        <select name="sex" id="sex_field" class="register_form_field">
+            <option value="" selected disabled hidden>성별을 선택해주세요</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select>
+    </div>
+
+    <div class="check_wrap">
+        <input type="checkbox" id="check_btn" name="terms_of_use" value="yes">
+        <label for="check_btn"><span>이용약관, 개인정보 수집 및 이용 동의 (필수)</span></label>
+    </div>
+    
+    <button type="button" id="register_submits"><img src="./assets/sign-btn.png" alt=""></button>
 </main>
+<div class="bottombar-style">2023 WEB SW Studio and Talent Donation</div>
 </body>

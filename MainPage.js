@@ -2,6 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchTerm');
     const searchButton = document.getElementById('searchButton');
     const searchResultContainer = document.getElementById('searchResults');
+    const logo = document.getElementById('logo');
+
+    logo.addEventListener('click', () => {
+        window.location.reload();
+    });
 
     searchInput.addEventListener('keyup', function (event) {
         if (event.key === 'Enter') {

@@ -13,7 +13,7 @@ const port = 3000;
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'wnddnjs1',
+  password: 'Gjwldnd!1',
   database: 'STATIONARY_STORE'
 });
 
@@ -55,8 +55,6 @@ const upload = multer({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-// 정적 파일 제공 (login.html과 login.js)
-//app.use(express.static('public'));
 
 app.use((req, res, next) => {
   const isLoggedIn = req.cookies.isLoggedIn === 'true';
@@ -231,8 +229,6 @@ app.get('/popular', async(req, res)=>{
                   itemCost: result[0].ICost
                 });
               } else {
-                // 데이터가 없는 경우에 대한 처리
-                // 예: resolve에 빈 객체를 전달하거나 다른 기본값을 사용할 수 있습니다.
                 resolve({}); 
               }
             }
@@ -430,7 +426,6 @@ app.get('/search', (req, res) => {
       if (result.length > 0) {
         const resultData = [];
         result.forEach(item => {
-
           const iid = item.IID;
           const iName = item.IName;
           const iCost = item.ICost;
@@ -446,7 +441,7 @@ app.get('/search', (req, res) => {
 });
 });
 
-app.use(express.static('C:/Workspace/WEB_PRJ'));
+app.use(express.static('C:/ww/WEB_PRJ'));
 
 
 // 서버 시작

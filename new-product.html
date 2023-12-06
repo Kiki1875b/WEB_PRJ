@@ -3,9 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="./styles/new-product.css">
+    <title>NewProduct</title>
+    <script src="MainPage.js"></script>
 </head>
 <body>
-    <h1>신상페이지</h1>
+    <img src="./assets/morning-glory-1.png" alt="morning-glory-logo" class="morning-glory-style" onclick="location.href='main.html'">
+    <div class="mainbar-style">
+        <button onclick="location.href='new-product.html'" class="new-product-btn-style">신상</button>
+        <button onclick="location.href='popular-products.html'" class="popular-products-btn-style">인기제품</button>
+        <button onclick="location.href='category.html'" class="category-btn-style">품목</button>
+        <input type="text" placeholder="검색어를 입력해 주세요" name="" id="" class="search-text-style">
+        <button onclick="location.href='announcement.html'" class="announcement-btn-style">공지사항</button>
+        <button onclick="location.href='shopping-basket.html'" class="shopping-basket-btn-style">장바구니</button>
+        <button onclick="location.href='login.html'" class="login-btn-style">로그인</button>
+    </div>
+
+    <div class="contents-new-product-style" id="imageContainer">
+        <h1>신상</h1>
+        <form>
+            <select name="list-order" id="">
+                <option value="recent-order" selected>최근 추가 순</option>
+                <option value="old-order">오래된 순</option>
+                <option value="cheap-order">낮은 가격 순</option>
+                <option value="expensive-order">높은 가격 순</option>
+            </select>
+        </form>
+        <div class="contents-new-product-container"></div>
+    </div>
+
+    <div class="bottombar-style">2023 WEB SW Studio and Talent Donation</div>
 </body>
 </html>

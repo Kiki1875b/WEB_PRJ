@@ -1,0 +1,18 @@
+const data = [ //이 곳에서 공지사항에 들어갈 항목들을 임시로 넣어놓았습니다 
+    { title: '1월 신규 제품 안내', postNumber: 1 },
+    { title: '2월 신규 제품 안내', postNumber: 2 },
+    { title: '3월 신규 제품 안내', postNumber: 3 },
+    { title: '4월 신규 제품 안내', postNumber: 4 },
+    { title: '5월 신규 제품 안내', postNumber: 5 },
+    { title: '6월 신규 제품 안내', postNumber: 6 },
+    { title: '7월 신규 제품 안내', postNumber: 7 },
+    { title: '8월 신규 제품 안내', postNumber: 8 },
+    { title: '9월 신규 제품 안내', postNumber: 9 },
+    { title: '10월 신규 제품 안내', postNumber: 10 },
+    { title: '11월 신규 제품 안내', postNumber: 11 },
+    { title: '12월 신규 제품 안내', postNumber: 12 },
+    { title: '1학기 신규 제품 안내', postNumber: 13 },
+    { title: '2학기 신규 제품 안내', postNumber: 14 },
+    { title: '주소 변경 안내', postNumber: 15 },
+    { title: '구매 방법 안내', postNumber: 16 },
+  ];

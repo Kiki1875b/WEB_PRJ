@@ -1,11 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>공지사항 페이지</h1>
-</body>
-</html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/announcement.css" />
+    <script src="data.js"></script>
+    <title>Announcement</title>
+  </head>
+  <body>
+
+    <img src="./assets/morning-glory-1.png" onclick="location.href='main.html'" alt="morning-glory-logo" class="morning-glory-style">
+    <div class="mainbar-style">
+        <button onclick="location.href='new-product.html'" class="new-product-btn-style">신상</button>
+        <button onclick="location.href='popular-products.html'" class="popular-products-btn-style">인기제품</button>
+        <button onclick="location.href='category.html'" class="category-btn-style">품목</button>
+        <input type="text" placeholder="검색어를 입력해 주세요" name="" id="" class="search-text-style">
+        <button onclick="location.href='announcement.html'" class="announcement-btn-style">공지사항</button>
+        <button onclick="location.href='shopping-basket.html'" class="shopping-basket-btn-style">장바구니</button>
+        <button onclick="location.href='login.html'" class="login-btn-style">로그인</button>
+    </div>
+
+    <div class="announcement-style">
+        <h1>공지사항</h1>
+        <form>
+            <select name="list-search" id="">
+                <option value="name" selected>제목</option>
+                <option value="content">내용</option>
+                <option value="category">카테고리</option>
+            </select>
+            <input type="text" placeholder="" name="" id="" class="search-announcement-text-style">
+        </form>
+        <hr style="border: solid 1px #FE9A2E; width:90%;">
+        <div class="announcement-container-style">
+            <ul>
+            <li>
+              <div class="post-container">
+                <p class="post-number">1</p>
+                <!-- <p class="post-category">category</p> -->
+                <p class="post-title">title</p>
+                <!-- <p class="post-writingday">작성일</p>
+                <p class="post-count-view">조회수</p> -->
+              </div>
+            </li>
+          </ul>
+          <div class="pagination-container">
+            <div class="first-button"><img src="./assets/ep_d-arrow-left.png" alt="처음"></div>
+            <div class="prev-button"><img src="./assets/ep_arrow-left.png" alt="이전"></div>
+            <div class="number-button-wrapper"><span class="number-button">1</span></div>
+            <div class="next-button"><img src="./assets/ep_arrow-right.png" alt="이후"></div>
+            <div class="last-button"><img src="./assets/ep_d-arrow-right.png" alt="마지막"></div>
+          </div>
+          <script src="announcement.js"></script>
+        </div>
+    </div>
+    <div class="bottombar-style">2023 WEB SW Studio and Talent Donation</div>
+  </body>
+</html

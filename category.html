@@ -3,9 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="./styles/category.css">
+    <script src="MainPage.js"></script>
+    <title>Category</title>
 </head>
 <body>
-    <h1>품목페이지</h1>
+    <img src="./assets/morning-glory-1.png" onclick="location.href='main.html'" alt="morning-glory-logo" class="morning-glory-style">
+    <div class="mainbar-style">
+        <button onclick="location.href='new-product.html'" class="new-product-btn-style">신상</button>
+        <button onclick="location.href='popular-products.html'" class="popular-products-btn-style">인기제품</button>
+        <button onclick="location.href='category.html'" class="category-btn-style">품목</button>
+        <input type="text" placeholder="검색어를 입력해 주세요" name="" id="" class="search-text-style">
+        <button onclick="location.href='announcement.html'" class="announcement-btn-style">공지사항</button>
+        <button onclick="location.href='shopping-basket.html'" class="shopping-basket-btn-style">장바구니</button>
+        <button onclick="location.href='login.html'" class="login-btn-style">로그인</button>
+    </div>
+
+    <div class="contents-all-product-style" id="imageContainer">
+        <div class="filter-container-style">
+            <img src="./assets/Vector.png" alt="필터이미지">
+            <p>필터</p>
+            <hr>
+            <ul class="filter-wrap">
+                <input type="checkbox" id="check_btn_writing" name="search-for-what" value="writing-materials">
+                <label for="check_btn_writing"><span>필기류</span></label>
+                <br>
+                <input type="checkbox" id="check_btn_pencilcase" name="search-for-what" value="pencilcase-materials">
+                <label for="check_btn_pencilcase"><span>필통/파우치</span></label>
+                <br>
+                <input type="checkbox" id="check_btn_note" name="search-for-what" value="note-materials">
+                <label for="check_btn_note"><span>노트/메모지</span></label>
+                <br>
+                <input type="checkbox" id="check_btn_storage" name="search-for-what" value="storage-materials">
+                <label for="check_btn_storage"><span>정리/수납용품</span></label>
+                <br>
+                <input type="checkbox" id="check_btn_file" name="search-for-what" value="file-materials">
+                <label for="check_btn_file"><span>화일/바인더</span></label>
+                <br>
+                <input type="checkbox" id="check_btn_office" name="search-for-what" value="office-materials">
+                <label for="check_btn_office"><span>사무용품</span></label>
+                <br>
+                <input type="checkbox" id="check_btn_etc" name="search-for-what" value="etc-materials">
+                <label for="check_btn_etc"><span>기타</span></label>
+            </ul>
+        </div>
+
+        <div class="contents-container-with-header-style">
+            <h1>품목</h1>
+            <div class="contents-new-product-container"></div>
+        </div>
+        
+        <form>
+            <select name="list-order" id="">
+                <option value="recent-order" selected>최근 추가 순</option>
+                <option value="old-order">오래된 순</option>
+                <option value="cheap-order">낮은 가격 순</option>
+                <option value="expensive-order">높은 가격 순</option>
+            </select>
+        </form>
+
+    </div>
+
+    <div class="bottombar-style">2023 WEB SW Studio and Talent Donation</div>
 </body>
 </html>

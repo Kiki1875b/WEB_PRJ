@@ -1,0 +1,252 @@
+.morning-glory-style{
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+}
+
+.mainbar-style {
+    margin: 0 auto;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.new-product-btn-style{
+    width: 96px;
+    height: 37px;
+    margin-left: 3%;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-EGH.png'); 
+    border-radius: 3rem; 
+}
+
+.popular-products-btn-style{
+    width: 129px;
+    height: 37px;
+    margin-left: 3%;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-EGH.png');
+    border-radius: 3rem;
+}
+
+.category-btn-style{
+    width: 96px;
+    height: 37px;
+    margin-left: 3%;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-giD.png');
+    border-radius: 3rem;
+}
+
+.search-text-style{
+    width: 350px;
+    height: 37px;
+    margin-left: 3%;
+
+    border: 1px solid #bbb;
+    border-radius: 3rem;
+    
+    font-size: 14px;
+    outline: solid #FEC42E;
+
+    background-image: url(../assets/material-symbols-search.png);
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 20px;
+}
+
+.announcement-btn-style{
+    width: 129px;
+    height: 37px;
+    margin-left: 3%;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-EGH.png');
+    border-radius: 3rem;
+}
+
+.shopping-basket-btn-style{
+    width: 129px;
+    height: 37px;
+    margin-left: 3%;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-EGH.png');
+    border-radius: 3rem;
+}
+
+.login-btn-style{
+    width: 106px;
+    height: 37px;
+    margin-left: 3%;
+    margin-right: 1%;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-EGH.png');
+    border-radius: 3rem;
+}
+
+.contents-all-product-style {
+    margin: 0 auto;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.filter-container-style {
+    margin-top: 3%;
+    width: auto;
+    /* margin-left: 1%; */
+}
+
+.filter-container-style img {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin-left: 24%;
+}
+
+.filter-container-style p {
+    display: inline-block;
+    color: #FE9A2E;
+    padding-left: 5px;
+    margin: auto;
+}
+
+.filter-container-style hr {
+    border: solid 1px #FE9A2E; 
+    width:90%;
+}
+
+.filter-container-style input {
+    margin-bottom: 10%;
+}
+
+.filter-wrap {
+    margin: auto;
+}
+
+.filter-wrap li {
+    margin-left: 0%;
+    list-style-type: none;
+}
+
+span{
+    color: #888;
+}
+
+input#check_btn_writing, #check_btn_pencilcase, #check_btn_note, #check_btn_storage, #check_btn_file, #check_btn_office, #check_btn_etc {
+    display:none;
+}
+  
+input#check_btn_writing + label, #check_btn_pencilcase + label, #check_btn_note + label, #check_btn_storage + label, #check_btn_file + label, #check_btn_office + label, #check_btn_etc + label {
+    cursor:pointer;
+}
+  
+input#check_btn_writing + label > span, #check_btn_pencilcase + label > span, #check_btn_note + label > span, #check_btn_storage + label > span, #check_btn_file + label > span, #check_btn_office + label > span, #check_btn_etc + label > span{
+    vertical-align: middle;
+    padding-left: 5px;
+}
+  
+  /* 체크하기 전 상태 CSS */
+input#check_btn_writing + label:before, #check_btn_pencilcase + label:before, #check_btn_note + label:before, #check_btn_storage + label:before, #check_btn_file + label:before, #check_btn_office + label:before, #check_btn_etc + label:before{
+    content:"";
+    display:inline-block;
+    width:17px;
+    height:17px;
+    border:1px solid #FEC42E;
+    border-radius: 4px;
+    vertical-align:middle;
+}
+    
+  /* 체크 된 상태 CSS */  
+input#check_btn_writing:checked + label:before, #check_btn_pencilcase:checked + label:before, #check_btn_note:checked + label:before, #check_btn_storage:checked + label:before, #check_btn_file:checked + label:before, #check_btn_office:checked + label:before, #check_btn_etc:checked + label:before{
+    content:"";
+    background-size: 11px;
+    border-color:#FEC42E;
+    background-image: url(../assets/check-btn.png);
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+
+.contents-container-with-header-style h1 {
+    color: #FEC42E;
+    text-align: center;
+}
+
+
+.contents-new-product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-left: 20%;
+    padding-right: 20%;
+    padding: auto;
+}
+
+.contents-new-product-one-style {
+    flex: 0 0 auto;
+    max-width: 200px;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    background-color: #949290;
+    border: 1px solid #ccc;
+    border-radius: 10px; /* 모서리를 10px로 둥글게 만듭니다. */
+    overflow: hidden; /* 모서리 부분이 텍스트나 이미지를 넘어가지 않도록 합니다. */
+    color: #ffffff;
+    margin: 5px;
+}
+
+.contents-new-product-one-style:hover {
+    background-color: hsl(31, 100%, 69%);
+}
+
+.contents-new-product-one-style img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    vertical-align: top;
+}
+
+.contents-new-product-one-style .text-container {
+    margin-left: 5px; /* 텍스트를 오른쪽으로 5px 이동 */
+}
+
+
+.contents-all-product-style form {
+    margin-top: 5%;
+}
+
+.contents-all-product-style select {
+    display: block;
+    font-size: 13px;
+    outline: none;
+    border-radius: 6px;  
+    /* padding: 10%;
+    margin: auto; */
+    border-color: #BCB9B6;
+    color: #BCB9B6;
+}
+
+.bottombar-style{
+    display: flex;
+    font-size: 2rem;
+    color: #000000;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    align-items: center;
+    justify-content: center;
+    background-color: #f6f6f6;
+}
+

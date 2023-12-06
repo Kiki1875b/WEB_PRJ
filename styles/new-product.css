@@ -19,7 +19,7 @@
     color: #ffffff;
     font-family: Noto Sans KR, 'Source Sans Pro';
     background-position: center; 
-    background-image: url('../assets/rectangle-118-EGH.png');
+    background-image: url('../assets/rectangle-118-giD.png'); 
     border-radius: 3rem; 
 }
 
@@ -30,7 +30,7 @@
     color: #ffffff;
     font-family: Noto Sans KR, 'Source Sans Pro';
     background-position: center; 
-    background-image: url('../assets/rectangle-118-giD.png');
+    background-image: url('../assets/rectangle-118-EGH.png');
     border-radius: 3rem;
 }
 
@@ -80,7 +80,7 @@
     color: #ffffff;
     font-family: Noto Sans KR, 'Source Sans Pro';
     background-position: center; 
-    background-image: url('../assets/rectangle-118-giD.png');
+    background-image: url('../assets/rectangle-118-EGH.png');
     border-radius: 3rem;
 }
 
@@ -96,15 +96,39 @@
     border-radius: 3rem;
 }
 
-.contents-new-product-style{
-    background-color: rgba(254, 154, 46, 0.400000006);
+.contents-new-product-style h1 {
+    text-align: center;
+    color: #FEC42E;
 }
+
+.contents-new-product-style form {
+    margin-left: 80%;
+    margin-bottom: 3%;
+}
+
+.contents-new-product-style select {
+    display: block;
+    font-size: 13px;
+    outline: none;
+    border-radius: 10px;  
+    padding-left: 10px;
+    padding-right: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px;
+    border-color: #BCB9B6;
+    color: #BCB9B6;
+}
+
 .contents-new-product-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
-.contents-temp-product-container {
+
+
+
+/* .contents-temp-product-container {
     justify-content: center;
 }
 
@@ -114,22 +138,22 @@
     position: relative;
     margin: 10px;
     box-sizing: border-box;
-    background-color: #c2bcaa;
+    background-color: #949290;
     border: 1px solid #ccc;
     border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 20px; /* Adjusted margin for spacing between images */
+    margin-bottom: 20px;  Adjusted margin for spacing between images 
 }
 
 
 .contents-temp-product-one-style img {
-    display: block; /* Ensure images are displayed as block-level elements */
-    margin-bottom: 20px; /* Adjusted margin for spacing between images */
+    display: block;  Ensure images are displayed as block-level elements 
+    margin-bottom: 20px; Adjusted margin for spacing between images 
     max-width: 100%;
     max-height: 100%;
     height: auto;
     border-radius: 10px;
-}
+} */
 
 .contents-new-product-one-style {
     flex: 0 0 auto;
@@ -138,16 +162,20 @@
     position: relative;
     margin: 10px;
     box-sizing: border-box;
-    background-color: #9c866f;
+    background-color: #949290;
     border: 1px solid #ccc;
     border-radius: 10px; /* 모서리를 10px로 둥글게 만듭니다. */
     overflow: hidden; /* 모서리 부분이 텍스트나 이미지를 넘어가지 않도록 합니다. */
     color: #ffffff;
 }
 
-.contents-new-product-container-border {
-    border: none; /* 부모 컨테이너에 border 추가 */
+.contents-new-product-one-style:hover {
+    background-color: hsl(31, 100%, 69%);
 }
+
+/* .contents-new-product-container-border {
+    border: none; 
+} */
 
 .contents-new-product-one-style img {
     max-width: 100%;
@@ -160,40 +188,6 @@
     margin-left: 5px; /* 텍스트를 오른쪽으로 5px 이동 */
 }
 
-
-.contents-popular-products-style{
-    background-color: rgba(254, 195, 46, 0.400000006);
-}
-
-.contents-popular-products-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.contents-popular-products-one-style{
-    flex: 0 0 auto;
-    max-width: 200px;
-    display: inline-block;
-    position: relative;
-    margin: 10px;
-    box-sizing: border-box;
-    background-color: #c2bcaa;
-    border: 1px solid #ccc;
-    border-radius: 10px; /* 모서리를 10px로 둥글게 만듭니다. */
-    overflow: hidden; /* 모서리 부분이 텍스트나 이미지를 넘어가지 않도록 합니다. */
-}
-
-.contents-popular-product-container-border{
-    border: none;
-}
-
-.contents-popular-products-one-style img{
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    vertical-align: top;
-}
 
 .bottombar-style{
     display: flex;

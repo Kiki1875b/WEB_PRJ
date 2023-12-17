@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("LOADED");
     const searchInput = document.getElementById('searchTerm');
     const searchButton = document.getElementById('searchButton');
     const searchResultContainer = document.getElementById('searchResults');

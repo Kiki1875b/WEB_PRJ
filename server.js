@@ -5,8 +5,9 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-
 const app = express();
+
+
 const port = 3000;
 
 // MySQL 연결 설정
@@ -16,6 +17,12 @@ const db = mysql.createConnection({
   password: 'Gjwldnd!1',
   database: 'STATIONARY_STORE'
 });
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/temp.html');
+});
+
+
 
 // MySQL 연결
 db.connect((err) => {
@@ -497,7 +504,7 @@ app.use(express.static('C:/ww/WEB_PRJ'));
 
 
 // 서버 시작
-app.listen(port, () => {
+http.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
 

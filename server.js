@@ -13,7 +13,7 @@ const port = 3000;
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'Gjwldnd!1',
+  password: 'wnddnjs1',
   database: 'STATIONARY_STORE'
 });
 
@@ -211,7 +211,7 @@ app.get('/popular', async(req, res)=>{
         const firstImage = files[0];
         const imagePath = path.join('uploads', folder, firstImage);
         // 아이템 아이디 쿼리
-        const query = `SELECT IID, IName, ICost FROM ITEM WHERE ItemImage LIKE "%${firstImage}%" AND SoldCount > 50`;
+        const query = `SELECT IID, IName, ICost FROM ITEM WHERE ItemImage LIKE "%${firstImage}%" AND SoldCount > -1`;
 
 
         return new Promise((resolve, reject) => {
@@ -219,6 +219,7 @@ app.get('/popular', async(req, res)=>{
             if (err) {
               reject(err);
             } else {
+              console.log(result);
               if (result.length > 0) {
                 resolve({
                   path: imagePath,
@@ -228,6 +229,7 @@ app.get('/popular', async(req, res)=>{
                   itemName: result[0].IName,
                   itemCost: result[0].ICost
                 });
+                
               } else {
                 resolve({}); 
               }
@@ -238,7 +240,7 @@ app.get('/popular', async(req, res)=>{
     });
 
     const images = await Promise.all(imagePromises);
-
+    
     res.json(images);
   } catch (err) {
     console.error('Error reading folders or files:', err);
@@ -441,7 +443,7 @@ app.get('/search', (req, res) => {
 });
 });
 
-app.use(express.static('C:/ww/WEB_PRJ'));
+app.use(express.static('C:/Workspace/WEB_PRJ'));
 
 
 // 서버 시작

@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchResultContainer = document.getElementById('searchResults');
     const logo = document.getElementById('logo');
 
-    logo.addEventListener('click', () => {
-        window.location.reload();
-    });
+    // logo.addEventListener('click', () => {
+    //     window.location.reload(); //일부러 주석처리 했습니다
+    // });
 
     searchInput.addEventListener('keyup', function (event) {
         if (event.key === 'Enter') {
@@ -15,43 +15,43 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
 
-    // fetch('images')
-    // .then(response => response.json())
-    // .then(images => {
-    //     const contentsNewProductContainer = document.querySelector('.contents-new-product-container');
+    fetch('images')
+    .then(response => response.json())
+    .then(images => {
+        const contentsNewProductContainer = document.querySelector('.contents-new-product-container');
 
-    //     images.forEach(image => {
-    //         const container = document.createElement('div');
-    //         container.classList.add('contents-new-product-one-style', 'contents-new-product-container-border');
+        images.forEach(image => {
+            const container = document.createElement('div');
+            container.classList.add('contents-new-product-one-style', 'contents-new-product-container-border');
 
-    //         const imgElement = document.createElement('img');
-    //         imgElement.src = image.path;
-    //         imgElement.alt = image.alt;
-    //         imgElement.style.cursor = 'pointer';
+            const imgElement = document.createElement('img');
+            imgElement.src = image.path;
+            imgElement.alt = image.alt;
+            imgElement.style.cursor = 'pointer';
 
-    //         const textContainer = document.createElement('div');
-    //         textContainer.classList.add('text-container');
-    //         const textLine1 = document.createElement('div');
-    //         const textLine2 = document.createElement('div');
+            const textContainer = document.createElement('div');
+            textContainer.classList.add('text-container');
+            const textLine1 = document.createElement('div');
+            const textLine2 = document.createElement('div');
 
-    //         textLine1.textContent = image.itemName;
-    //         textLine2.textContent = image.itemCost + '원';
+            textLine1.textContent = image.itemName;
+            textLine2.textContent = image.itemCost + '원';
 
-    //         textContainer.appendChild(textLine1);
-    //         textContainer.appendChild(textLine2);
+            textContainer.appendChild(textLine1);
+            textContainer.appendChild(textLine2);
 
-    //         container.appendChild(imgElement);///////
-    //         container.appendChild(textContainer);
+            container.appendChild(imgElement);///////
+            container.appendChild(textContainer);
 
-    //         container.addEventListener('click', () => {
+            container.addEventListener('click', () => {
                 
-    //             showDetailedInformation(image.folderPath, image.iID);
-    //         });
+                showDetailedInformation(image.folderPath, image.iID);
+            });
 
-    //         contentsNewProductContainer.appendChild(container);
-    //     });
+            contentsNewProductContainer.appendChild(container);
+        });
        
-    // });
+    });
 
     fetch('popular')
     .then(response => response.json())

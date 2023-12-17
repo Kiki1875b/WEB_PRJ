@@ -1,56 +1,10 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", ()=>{
     const searchInput = document.getElementById('searchTerm');
-    const searchButton = document.getElementById('searchButton');
-    const searchResultContainer = document.getElementById('searchResults');
-    // const logo = document.getElementById('logo');
-
-    // logo.addEventListener('click', () => {
-    //     window.location.reload(); //일부러 주석처리 했습니다
-    // });
 
     searchInput.addEventListener('keyup', function (event) {
         if (event.key === 'Enter') {
-          performSearch();
+        performSearch();
         }
-      });
-
-
-    fetch('images')
-    .then(response => response.json())
-    .then(images => {
-        const contentsNewProductContainer = document.querySelector('.contents-new-product-container');
-
-        images.forEach(image => {
-            const container = document.createElement('div');
-            container.classList.add('contents-new-product-one-style', 'contents-new-product-container-border');
-
-            const imgElement = document.createElement('img');
-            imgElement.src = image.path;
-            imgElement.alt = image.alt;
-            imgElement.style.cursor = 'pointer';
-
-            const textContainer = document.createElement('div');
-            textContainer.classList.add('text-container');
-            const textLine1 = document.createElement('div');
-            const textLine2 = document.createElement('div');
-
-            textLine1.textContent = image.itemName;
-            textLine2.textContent = image.itemCost + '원';
-
-            textContainer.appendChild(textLine1);
-            textContainer.appendChild(textLine2);
-
-            container.appendChild(imgElement);///////
-            container.appendChild(textContainer);
-
-            container.addEventListener('click', () => {
-                
-                showDetailedInformation(image.folderPath, image.iID);
-            });
-
-            contentsNewProductContainer.appendChild(container);
-        });
-       
     });
 
     fetch('popular')
@@ -70,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             imgElement.alt = image.alt;
             imgElement.style.cursor = 'pointer';
 
-            
+                
 
             const textContainer = document.createElement('div');
             textContainer.classList.add('text-container');
@@ -96,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });     
     })
     .catch(error => console.error("Error fetching imgs:", error));
+
 
     function showDetailedInformation(folderPath, itemID) {
         const currentUrl = window.location.href;
@@ -141,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const quantityInput = popup.document.createElement('input');
             quantityInput.type = 'number';
             quantityInput.min = '1';
-            quantityInput.value = '1'; // You can set a default value if needed
+            quantityInput.value = '1'; 
 
 
             addToCartButton.addEventListener('click', function() {
@@ -162,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 })
                 .then(data => {
-                    // Now, 'data' contains the parsed JSON response
                     if (data.status === true) {
                         
                         console.log("username: ", data.username);
@@ -184,96 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
     }
 
-    function addToCart(username, itemID, quantity){
-        const data = {
-            username: username,
-            itemID: itemID,
-            quantity: quantity
-        };
 
-        console.log(username, data.itemID);
-    
-        fetch('/addToCartEndpoint', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.json(); 
-            } else {
-                throw new Error(`HTTP ERROR! STATUS: ${response.status}`);
-            }
-        })
-        .then(result => {
-            
-            console.log(result);
-            
-        })
-        .catch(error => console.error("Error:", error));
-    }
 
-    function performSearch(){
-        const searchTerm = searchInput.value.trim();
 
-        if(searchTerm !== ''){
-            fetch(`/search?searchTerm=${encodeURIComponent(searchTerm)}`)
-            .then(response => response.json())
-            .then(data => {
 
-                
-                displaySearchResults(data);
-            })
-            .catch(error => console.error("Error:", error));
-        }
-    }
-
-    function displaySearchResults(result){
-
-        const contentsNewProductContainer = document.querySelector('.contents-new-product-container');
-        const popularContainer = document.querySelector('.contents-popular-products-style');
-        const title = document.getElementById('mainTitle');
-        title.textContent = "검색 결과";
-        contentsNewProductContainer.innerHTML = '';
-        popularContainer.innerHTML = '';
-        console.log(result.data);
-        if(result){
-            result.data.forEach(result => {
-                const container = document.createElement('div');
-                container.classList.add('contents-new-product-one-style', 'contents-new-product-container-border');
-
-                const imgElement = document.createElement('img');
-                imgElement.src = result.firstPart;
-                imgElement.alt = result.iName;
-                imgElement.style.cursor = 'pointer';
-
-                const textContainer = document.createElement('div');
-                textContainer.classList.add('text-container');
-                const textLine1 = document.createElement('div');
-                const textLine2 = document.createElement('div');
-    
-                textLine1.textContent = result.iName;
-                textLine2.textContent = result.iCost + '원';
-    
-                textContainer.appendChild(textLine1);
-                textContainer.appendChild(textLine2);
-    
-                container.appendChild(imgElement);
-                container.appendChild(textContainer);
-
-                container.addEventListener('click', () => {
-                
-                    showDetailedInformation(result.iName, result.iid);
-                });
-    
-                contentsNewProductContainer.appendChild(container);
-            });
-        }
-
-    }
-    
 });
-
-

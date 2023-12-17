@@ -248,6 +248,58 @@ app.get('/popular', async(req, res)=>{
   }
 });
 
+app.get('/new', async(req, res) => {
+  const uploadPath=path.join(__dirname, 'uploads');
+
+  try {
+    const folders = await fs.promises.readdir(uploadPath);
+  
+
+    const imagePromises = folders.map(async (folder) => {
+      const folderPath = path.join(uploadPath, folder);
+      const files = await fs.promises.readdir(folderPath);
+
+      if (files.length > 0) {
+        const firstImage = files[0];
+        const imagePath = path.join('uploads', folder, firstImage);
+        // 아이템 아이디 쿼리
+        const query = `SELECT IID, IName, ICost, RegisterDate FROM ITEM WHERE ItemImage LIKE "%${firstImage}%" AND MONTH(RegisterDate) = MONTH(CURRENT_DATE)`;
+
+
+        return new Promise((resolve, reject) => {
+          db.query(query, (err, result) => {
+            
+            if (err) {
+              reject(err);
+            } else {
+              if (result.length > 0) {
+                resolve({
+                  path: imagePath,
+                  alt: folder,
+                  folderPath: folder,
+                  iID: result[0].IID,
+                  itemName: result[0].IName,
+                  itemCost: result[0].ICost
+                });
+                console.log(result[0].ICost);
+              } else {
+                resolve({}); 
+              }
+            }
+          });
+        });
+      }
+    });
+
+    const images = await Promise.all(imagePromises);
+
+    res.json(images);
+  } catch (err) {
+    console.error('Error reading folders or files:', err);
+    return res.status(500).send('Internal server error while fetching folders');
+  }
+});
+
 
 //상세정보
 

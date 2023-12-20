@@ -151,7 +151,15 @@
     margin-left: 5px; /* 텍스트를 오른쪽으로 5px 이동 */
 }
 
+.resgisterItem-btn-style {
+    width: 35px;
+    height: 35px;
+    margin-left: auto;
+    display: block;
+}
+
 .bottombar-style{
+    margin-top: 1%;
     display: flex;
     font-size: 2rem;
     color: #000000;

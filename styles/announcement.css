@@ -212,6 +212,7 @@ li {
 }
 
 .bottombar-style{
+    margin-top: 1%;
     display: flex;
     font-size: 2rem;
     color: #000000;

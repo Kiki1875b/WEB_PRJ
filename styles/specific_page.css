@@ -1,0 +1,161 @@
+.morning-glory-style{
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+}
+
+.mainbar-style {
+    margin: 0 auto;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.new-product-btn-style{
+    width: 96px;
+    height: 37px;
+    margin-left: 1%;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-EGH.png'); 
+    border-radius: 3rem; 
+}
+
+.popular-products-btn-style{
+    width: 129px;
+    height: 37px;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-EGH.png');
+    border-radius: 3rem;
+}
+
+.category-btn-style{
+    width: 96px;
+    height: 37px;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-EGH.png');
+    border-radius: 3rem;
+}
+
+.search-text-style{
+    width: 350px;
+    height: 37px;
+
+    border: 1px solid #bbb;
+    border-radius: 3rem;
+    
+    font-size: 14px;
+    outline: solid #FEC42E;
+
+    background-image: url(../assets/material-symbols-search.png);
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 20px;
+}
+
+.announcement-btn-style{
+    width: 129px;
+    height: 37px;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-EGH.png');
+    border-radius: 3rem;
+}
+
+.shopping-basket-btn-style{
+    width: 129px;
+    height: 37px;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-EGH.png');
+    border-radius: 3rem;
+}
+
+.login-btn-style{
+    width: 106px;
+    height: 37px;
+    margin-right: 1%;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    background-image: url('../assets/rectangle-118-EGH.png');
+    border-radius: 3rem;
+}
+
+h1 {
+    text-align: center;
+    color: #FEC42E;
+}
+
+.bigContainer {
+    margin: 0 auto;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.prevButton {
+    /* margin-left: 10%; */
+    background-image: url('../assets/Double-left.png');
+    width: 129px;
+    height: 37px;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    border-radius: 3rem;
+}
+
+.nextButton {
+    /* margin-right: 10%; */
+    background-image: url('../assets/Double-right.png');
+    width: 129px;
+    height: 37px;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-position: center; 
+    border-radius: 3rem;
+} 
+
+.quantityInput {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 2%;
+    border-radius: 25px;
+    width: 90px;
+    border-color: #FE9A2E;
+}
+
+.addToCartButton {
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+    height: 24px;
+    border-radius: 25px;
+    font-weight: bold;
+    border-color: #FE9A2E;
+    background-color: white;
+    color: #FE9A2E;
+}
+
+.bottombar-style{
+    margin-top: 1%;
+    display: flex;
+    font-size: 2rem;
+    color: #000000;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    align-items: center;
+    justify-content: center;
+    background-color: #f6f6f6;
+}

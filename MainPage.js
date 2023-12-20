@@ -426,13 +426,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         document.body.appendChild(adminButton);
         console.log('User is logged in as admin');
-        // Perform actions for admin users
     } else {
         console.log('User is not logged in as admin');
-        // Perform actions for non-admin users
     }
-
-    // Function to get a cookie value by name
 
 
 

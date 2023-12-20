@@ -5,19 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Table</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .button-container {
+            display: flex;
+            justify-content: center;
             margin-top: 20px;
         }
 
-        table, th, td {
-            border: 1px solid black;
+        button {
+            margin: 10px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px;
+            width: 1500px;
         }
 
         th, td {
+            border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #388E3C;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -26,6 +58,25 @@
 <!-- 테이블이 들어갈 영역 -->
 <div id="table-container"></div>
 
-<script src="script.js"></script>
+
+<div class="button-container">
+    <button id="add-button">추가</button>
+    <button id="cancel-button">취소</button>
+</div>
+
+<!--<div id="popup">-->
+<!--    <h2>새로운 항목 추가</h2>-->
+<!--    <form action="#">-->
+<!--        <input type="text" placeholder="IID">-->
+<!--        <input type="text" placeholder="상품명">-->
+<!--        <input type="text" placeholder="가격">-->
+<!--        <input type="text" placeholder="이미지">-->
+<!--        <input type="text" placeholder="카테고리">-->
+<!--        <input type="text" placeholder="판매량">-->
+<!--        <input type="text" placeholder="등록일">-->
+<!--        <input type="submit" id="register" value="상품 추가">-->
+<!--    </form>-->
+<!--</div>-->
+<script src="temp.js"></script>
 </body>
 </html>

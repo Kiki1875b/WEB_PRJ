@@ -9,13 +9,15 @@
     margin: 0 auto;
     margin-bottom: 10px;
     display: flex;
+    align-items: center;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .new-product-btn-style{
     width: 96px;
     height: 37px;
-    margin-left: 3%;
+    margin-left: 1%;
     color: #ffffff;
     font-family: Noto Sans KR, 'Source Sans Pro';
     background-position: center; 
@@ -26,7 +28,6 @@
 .popular-products-btn-style{
     width: 129px;
     height: 37px;
-    margin-left: 3%;
     color: #ffffff;
     font-family: Noto Sans KR, 'Source Sans Pro';
     background-position: center; 
@@ -37,7 +38,6 @@
 .category-btn-style{
     width: 96px;
     height: 37px;
-    margin-left: 3%;
     color: #ffffff;
     font-family: Noto Sans KR, 'Source Sans Pro';
     background-position: center; 
@@ -48,7 +48,6 @@
 .search-text-style{
     width: 350px;
     height: 37px;
-    margin-left: 3%;
 
     border: 1px solid #bbb;
     border-radius: 3rem;
@@ -65,7 +64,6 @@
 .announcement-btn-style{
     width: 129px;
     height: 37px;
-    margin-left: 3%;
     color: #ffffff;
     font-family: Noto Sans KR, 'Source Sans Pro';
     background-position: center; 
@@ -76,7 +74,6 @@
 .shopping-basket-btn-style{
     width: 129px;
     height: 37px;
-    margin-left: 3%;
     color: #ffffff;
     font-family: Noto Sans KR, 'Source Sans Pro';
     background-position: center; 
@@ -87,7 +84,6 @@
 .login-btn-style{
     width: 106px;
     height: 37px;
-    margin-left: 3%;
     margin-right: 1%;
     color: #ffffff;
     font-family: Noto Sans KR, 'Source Sans Pro';
@@ -101,19 +97,19 @@
     margin-bottom: 10px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .filter-container-style {
     margin-top: 3%;
-    width: auto;
-    /* margin-left: 1%; */
+    width: max-content;
 }
 
 .filter-container-style img {
     display: inline-block;
     width: 25px;
     height: 25px;
-    margin-left: 24%;
+    /* margin-left: 1%; */
 }
 
 .filter-container-style p {
@@ -125,20 +121,10 @@
 
 .filter-container-style hr {
     border: solid 1px #FE9A2E; 
-    width:90%;
-}
-
-.filter-container-style input {
-    margin-bottom: 10%;
 }
 
 .filter-wrap {
     margin: auto;
-}
-
-.filter-wrap li {
-    margin-left: 0%;
-    list-style-type: none;
 }
 
 span{
@@ -179,20 +165,26 @@ input#check_btn_writing:checked + label:before, #check_btn_pencilcase:checked + 
     background-position: 50%;
 }
 
+.contents-container-with-header-style{
+    width: 1000px; /*임시방편*/
+}
+
 
 .contents-container-with-header-style h1 {
     color: #FEC42E;
-    text-align: center;
+    margin-left: 45%;
+    margin-top: 10px;
 }
 
 
 .contents-new-product-container {
     display: flex;
     flex-wrap: wrap;
+    width: auto;
     justify-content: center;
     padding-left: 20%;
     padding-right: 20%;
-    padding: auto;
+    margin: auto;
 }
 
 .contents-new-product-one-style {
@@ -227,15 +219,19 @@ input#check_btn_writing:checked + label:before, #check_btn_pencilcase:checked + 
 
 .contents-all-product-style form {
     margin-top: 5%;
+    padding: auto;
 }
 
 .contents-all-product-style select {
     display: block;
     font-size: 13px;
     outline: none;
-    border-radius: 6px;  
-    /* padding: 10%;
-    margin: auto; */
+    /* border-radius: 10px;  
+    padding-left: 10px;
+    padding-right: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px; */
     border-color: #BCB9B6;
     color: #BCB9B6;
 }

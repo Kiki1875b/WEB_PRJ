@@ -37,8 +37,10 @@ db.connect((err) => {
 const storage = multer.diskStorage({
   destination: function(req, file, cb){
     try{
-    const folderName = req.body.item_name;
+    const folderName = req.body.itemName;
     const folderPath = `uploads/${folderName}`;
+    // console.log('n: ', req.body);
+    // console.log('nn: ', req.body.itemName);
 
     fs.mkdirSync(folderPath, { recursive: true }); // Create folder if it doesn't exist
 
@@ -80,8 +82,11 @@ app.post('/login', (req, res) => {
     if (err) throw err;
 
     if (result.length > 0) {
+      const user = result[0];
+      const isAdmin = user.UID.toLowerCase() === 'admin';
       res.cookie('isLoggedIn', 'true', { maxAge: 60 * 60 * 1000 }); 
       res.cookie('username', username, {maxAge: 60 * 60 * 1000}); 
+      res.cookie('isAdmin', isAdmin.toString(), { maxAge: 60 * 60 * 1000 }); 
       res.send(true);
     } else {
       res.send(false);
@@ -178,6 +183,7 @@ app.get('/images', async (req, res) => {
       if (files.length > 0) {
         const firstImage = files[0];
         const imagePath = path.join('uploads', folder, firstImage);
+        console.log(firstImage);
         // 아이템 아이디 쿼리
         const query = `SELECT IID, IName, ICost FROM ITEM WHERE ItemImage LIKE "%${firstImage}%"`;
 
@@ -218,7 +224,7 @@ app.get('/popular', async(req, res)=>{
         const firstImage = files[0];
         const imagePath = path.join('uploads', folder, firstImage);
         // 아이템 아이디 쿼리
-        const query = `SELECT IID, IName, ICost FROM ITEM WHERE ItemImage LIKE "%${firstImage}%" AND SoldCount > 50`;
+        const query = `SELECT IID, IName, ICost, RegisterDate, SoldCount FROM ITEM WHERE ItemImage LIKE "%${firstImage}%" AND SoldCount > 400`;
 
 
         return new Promise((resolve, reject) => {
@@ -226,6 +232,7 @@ app.get('/popular', async(req, res)=>{
             if (err) {
               reject(err);
             } else {
+              console.log("here: ", result);
               if (result.length > 0) {
                 resolve({
                   path: imagePath,
@@ -233,8 +240,11 @@ app.get('/popular', async(req, res)=>{
                   folderPath: folder,
                   iID: result[0].IID,
                   itemName: result[0].IName,
-                  itemCost: result[0].ICost
+                  itemCost: result[0].ICost,
+                  registerDate: result[0].RegisterDate,
+                  soldCount: result[0].SoldCount,
                 });
+                
               } else {
                 resolve({}); 
               }
@@ -245,7 +255,7 @@ app.get('/popular', async(req, res)=>{
     });
 
     const images = await Promise.all(imagePromises);
-
+    
     res.json(images);
   } catch (err) {
     console.error('Error reading folders or files:', err);
@@ -284,7 +294,9 @@ app.get('/new', async(req, res) => {
                   folderPath: folder,
                   iID: result[0].IID,
                   itemName: result[0].IName,
-                  itemCost: result[0].ICost
+                  itemCost: result[0].ICost,
+                  registerDate: result[0].RegisterDate,
+                  soldCount: result[0].SoldCount,
                 });
                 console.log(result[0].ICost);
               } else {
@@ -500,11 +512,114 @@ app.get('/search', (req, res) => {
 });
 });
 
+app.get('/items', (req, res) =>{
+  const query = `SELECT * FROM item`;
+  db.query(query, (err, result) =>{
+    if(err){
+      res.status(500).json({status: error});
+    }else{
+      if(result.length > 0){
+        console.log("?");
+        const resultData = [];
+        result.forEach(item => {
+          const iid = item.IID;
+          const iName = item.IName;
+          const iCost = item.ICost;
+          const itemPath = item.ItemImage;
+          let firstPart = "";
+          if(itemPath==null){
+            
+          }else{
+             firstPart = itemPath.split(',')[0];
+          }
+          
+          const category = item.Category;
+          const soldCount = item.SoldCount;
+          const registerDate = item.RegisterDate;
+          resultData.push({iid,iName,iCost,firstPart,category,soldCount,registerDate,});
+          console.log(registerDate);
+        });
+        res.json({data:resultData});
+      }
+    }
+  });
+});
+
+app.post('/updateItem', upload.array('imageFile'), (req, res) => {
+  const id = req.body.itemName;
+  console.log(id);
+  const images = req.files;
+  const imagePaths = images.map(image => image.path);
+  const imagePath = imagePaths.join(',');
+  const query = `UPDATE item SET iName = ?, iCost = ?, Category = ?,soldCount = ?, ItemImage= ? WHERE IID = ?`;
+  db.query(query, [req.body.itemName, req.body.itemCost, req.body.itemCategory, req.body.itemSoldCount,imagePath,req.body.itemID],(err, resultData) => {
+    if(err) {return res.status(err).json({stat: 'fail'})}
+    else{
+      return res.json({stat: 'success'});
+    };
+  });
+});
+
+app.post('/insertItem', (req, res) => {
+  const id = req.body.itemID;
+  let c = 0;
+  const checkQuery = `SELECT COUNT(*) AS C FROM item WHERE IID = ?`;
+  db.query(checkQuery, [id], (err, resultData) => {
+    if(err) {
+      return res.status(err);
+    }else{
+      c = resultData[0].C;
+      console.log(resultData);
+    }
+  });
+
+  if(c==0){
+    const query = `INSERT INTO item (IID) VALUES (?)`;
+    db.query(query, [id], (err, result) => {
+      if(err){
+        return res.status(err);
+      }else{
+        console.log(query);
+        return res.json({s: 'Success'});
+      }
+    })
+  }
+});
+
+app.post('/deleteItem', (req, res) => {
+  console.log(req.body.ID);
+  const toBeDeleted = req.body.name;
+  const path = `C:/ww/WEB_PRJ/uploads/${toBeDeleted}`; // 경로에 맞게 설정!!
+
+  
+  const query = `DELETE FROM item WHERE IID = '${req.body.ID}'`;
+  db.query(query, (err) => {
+    if(err){
+      console.log(err);
+      return res.status(err);
+    }else{
+      console.log(req.body.ID + 'deleted!');
+      // 폴더 삭제
+      fs.rmdir(path, { recursive: true }, (err) => {
+        if (err) {
+            console.error('Error deleting folder:', err);
+            return res.status(500).json({ message: 'Failed to delete folder.' });
+        } else {
+            console.log(path + ' deleted successfully!');
+            return res.json({ message: 'Item deleted successfully!' });
+        }
+    });
+    }
+  });
+
+});
+
+
 app.use(express.static('C:/ww/WEB_PRJ'));
 
 
 // 서버 시작
-http.listen(port, () => {
+app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
 

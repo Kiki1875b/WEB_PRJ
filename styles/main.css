@@ -9,13 +9,15 @@
     margin: 0 auto;
     margin-bottom: 10px;
     display: flex;
+    align-items: center;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .new-product-btn-style{
     width: 96px;
     height: 37px;
-    margin-left: 3%;
+    margin-left: 1%;
     color: #ffffff;
     font-family: Noto Sans KR, 'Source Sans Pro';
     background-position: center; 
@@ -26,7 +28,6 @@
 .popular-products-btn-style{
     width: 129px;
     height: 37px;
-    margin-left: 3%;
     color: #ffffff;
     font-family: Noto Sans KR, 'Source Sans Pro';
     background-position: center; 
@@ -37,7 +38,6 @@
 .category-btn-style{
     width: 96px;
     height: 37px;
-    margin-left: 3%;
     color: #ffffff;
     font-family: Noto Sans KR, 'Source Sans Pro';
     background-position: center; 
@@ -48,8 +48,6 @@
 .search-text-style{
     width: 350px;
     height: 37px;
-    margin-left: 3%;
-
     border: 1px solid #bbb;
     border-radius: 3rem;
     
@@ -65,7 +63,6 @@
 .announcement-btn-style{
     width: 129px;
     height: 37px;
-    margin-left: 3%;
     color: #ffffff;
     font-family: Noto Sans KR, 'Source Sans Pro';
     background-position: center; 
@@ -76,7 +73,6 @@
 .shopping-basket-btn-style{
     width: 129px;
     height: 37px;
-    margin-left: 3%;
     color: #ffffff;
     font-family: Noto Sans KR, 'Source Sans Pro';
     background-position: center; 
@@ -87,7 +83,6 @@
 .login-btn-style{
     width: 106px;
     height: 37px;
-    margin-left: 3%;
     margin-right: 1%;
     color: #ffffff;
     font-family: Noto Sans KR, 'Source Sans Pro';
@@ -138,7 +133,7 @@
     position: relative;
     margin: 10px;
     box-sizing: border-box;
-    background-color: #9c866f;
+    background-color: #b89c7f;
     border: 1px solid #ccc;
     border-radius: 10px; /* 모서리를 10px로 둥글게 만듭니다. */
     overflow: hidden; /* 모서리 부분이 텍스트나 이미지를 넘어가지 않도록 합니다. */
@@ -165,7 +160,7 @@
     background-color: rgba(254, 195, 46, 0.400000006);
 }
 
-.contents-popular-products-container {
+.contents-popular-product-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -178,10 +173,15 @@
     position: relative;
     margin: 10px;
     box-sizing: border-box;
-    background-color: #c2bcaa;
+    background-color: #a99a74;
     border: 1px solid #ccc;
     border-radius: 10px; /* 모서리를 10px로 둥글게 만듭니다. */
     overflow: hidden; /* 모서리 부분이 텍스트나 이미지를 넘어가지 않도록 합니다. */
+    color: #ffffff;
+}
+
+.contents-popular-products-one-style .text-container {
+    margin-left: 5px; /* 텍스트를 오른쪽으로 5px 이동 */
 }
 
 .contents-popular-product-container-border{

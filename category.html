@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/category.css">
-    <script src="MainPage.js"></script>
+    <script src="category.js"></script>
     <title>Category</title>
 </head>
 <body>
@@ -25,25 +25,13 @@
             <p>필터</p>
             <hr>
             <div class="filter-wrap">
-                <input type="checkbox" id="check_btn_writing" name="search-for-what" value="writing-materials">
+                <input type="radio" id="check_btn_writing" name="search-for-what" value="writing-materials">
                 <label for="check_btn_writing"><span>필기류</span></label>
                 <br>
-                <input type="checkbox" id="check_btn_pencilcase" name="search-for-what" value="pencilcase-materials">
-                <label for="check_btn_pencilcase"><span>필통/파우치</span></label>
-                <br>
-                <input type="checkbox" id="check_btn_note" name="search-for-what" value="note-materials">
-                <label for="check_btn_note"><span>노트/메모지</span></label>
-                <br>
-                <input type="checkbox" id="check_btn_storage" name="search-for-what" value="storage-materials">
-                <label for="check_btn_storage"><span>정리/수납용품</span></label>
-                <br>
-                <input type="checkbox" id="check_btn_file" name="search-for-what" value="file-materials">
-                <label for="check_btn_file"><span>화일/바인더</span></label>
-                <br>
-                <input type="checkbox" id="check_btn_office" name="search-for-what" value="office-materials">
+                <input type="radio" id="check_btn_office" name="search-for-what" value="office-materials">
                 <label for="check_btn_office"><span>사무용품</span></label>
                 <br>
-                <input type="checkbox" id="check_btn_etc" name="search-for-what" value="etc-materials">
+                <input type="radio" id="check_btn_etc" name="search-for-what" value="etc-materials">
                 <label for="check_btn_etc"><span>기타</span></label>
             </div>
         </div>

@@ -2,6 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     const addButton = document.getElementById('add-button');
+    const orderButton = document.getElementById('order-button');
     const removeButton = document.getElementById('cancel-button');
     const popup = document.getElementById('popup');
     const registerButton = document.getElementById('register');
@@ -15,6 +16,11 @@ document.addEventListener('DOMContentLoaded', function () {
     let scanning = false;
     let barcode = "";
     let lastCharTime = 0;
+
+    orderButton.addEventListener('click', () => {
+        window.location.href = "orderManagement.html";
+
+    })
     
     addButton.addEventListener('click', function(){
         canScan = true;
@@ -159,7 +165,24 @@ document.addEventListener('DOMContentLoaded', function () {
                     <label for="${rowId}_imageUpload">이미지를 선택하시오: </label>
                     <input type="file" name="item_image" id="${rowId}_item_image_field" class="register_item" accept="image/*" multiple>
                 </form>`;
-            } else if(key == 7){
+            }else if (key == 4) {
+                // Assuming you have an array of options for the dropdown
+                var options = ['필기구', '공구', '사무용품', '기타'];
+          
+                // Create a select element
+                var select = document.createElement('select');
+                select.id = `Dropdown_${rowId}`;
+          
+                // Add options to the select element
+                options.forEach(function (option) {
+                  var optionElement = document.createElement('option');
+                  optionElement.value = option;
+                  optionElement.text = option;
+                  select.appendChild(optionElement);
+                });
+                cell.appendChild(select);
+            } 
+            else if(key == 7){
 
                 // var cell = row.insertCell();
                 var button = document.createElement('button');
@@ -193,6 +216,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     if(values[5] == ''){
                         values[5] = 0;
                     }
+
+                    var dropdown = document.getElementById(`Dropdown_${rowId}`);
+                    var selectedValue = dropdown.options[dropdown.selectedIndex].value;
+                    values[4] = selectedValue;
                     
                     var images = document.getElementById(`${rowId}_item_image_field`).files;
                     console.log(images.length);

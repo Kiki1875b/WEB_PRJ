@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const bcrypt = require('bcrypt');
+const validator = require('validator');
+
 const app = express();
 
 
@@ -75,20 +78,33 @@ app.use((req, res, next) => {
 app.post('/login', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-  
-  // MySQL에서 사용자 정보 확인
-  const sql = 'SELECT * FROM USER WHERE UID = ? AND PWD = ?';
-  db.query(sql, [username, password], (err, result) => {
+
+  // Retrieve user information from MySQL
+  const sql = 'SELECT * FROM USER WHERE UID = ?'; // Only retrieve hashed password for comparison
+  db.query(sql, [username], (err, result) => {
     if (err) throw err;
 
     if (result.length > 0) {
       const user = result[0];
-      const isAdmin = user.UID.toLowerCase() === 'admin';
-      res.cookie('isLoggedIn', 'true', { maxAge: 60 * 60 * 1000 }); 
-      res.cookie('username', username, {maxAge: 60 * 60 * 1000}); 
-      res.cookie('isAdmin', isAdmin.toString(), { maxAge: 60 * 60 * 1000 }); 
-      res.send(true);
+
+      // Compare hashed passwords using bcrypt
+      bcrypt.compare(password, user.PWD, (err, isMatch) => {
+        if (err) throw err;
+
+        if (isMatch) {
+          // Authentication successful
+          const isAdmin = user.UID.toLowerCase() === 'admin';
+          res.cookie('isLoggedIn', 'true', { maxAge: 60 * 60 * 1000 });
+          res.cookie('username', username, { maxAge: 60 * 60 * 1000 });
+          res.cookie('isAdmin', isAdmin.toString(), { maxAge: 60 * 60 * 1000 });
+          res.send(true);
+        } else {
+          // Invalid password
+          res.send(false);
+        }
+      });
     } else {
+      // User not found
       res.send(false);
     }
   });
@@ -113,12 +129,24 @@ app.post('/check', (req, res) => {
 //사용자 회원가입
 app.post('/register',(req,res)=> {
   const{username, password, phoneNum, address, email, sex} = req.body;
+
+  console.log(username, password, phoneNum, address);
+
+  const saltRounds = 10;
+  const hashedPassword = bcrypt.hashSync(password, saltRounds);
+
   const insertQuery = 'INSERT INTO USER (UID, PWD, phone_num, Address, Email, `Register Date`, Sex) VALUES (?, ?, ?, ?, ?, CURDATE(), ?)';
-  const values = [username, password, phoneNum, address, email, sex];
+  const values = [username, hashedPassword, phoneNum, address, email, sex];
 
   if (!username) {
     // 클라이언트에서 'username' 값을 전달하지 않았을 경우
     return res.status(400).send("Bad Request: 'username' is required. A" + req.body.username);
+  }
+
+  if (!validator.isEmail(email)) {
+    // 이메일 유효성 검사 실패
+    console.log("!");
+    return res.status(400).send("Bad Request: Invalid email address.");
   }
 
   db.query(insertQuery, values, (err, results) => {
@@ -126,12 +154,66 @@ app.post('/register',(req,res)=> {
       throw err;
     }
 
-    if(results.length >0){
-      res.send("회원가입 성공!");
-    }else{
-      res.send("실패");
+    if (results.affectedRows === 0) {
+      res.json({result: "F"});
+    } else {
+      res.json({result: "T"});
     }
   });
+
+});
+
+app.post('/selected', async (req, res) => {
+  const category = req.body.category;
+  let value = '';
+  console.log(category);
+  if(category == 'writing-materials'){
+    value = '필기구';
+  }else if(category == 'office-materials'){
+    value='사무용품';
+  }else if(category == 'etc-materials'){
+    value = '기타';
+  }
+
+  const uploadPath = path.join(__dirname, 'uploads');
+
+  try {
+    const folders = await fs.promises.readdir(uploadPath);
+
+    const imagePromises = folders.map(async (folder) => {
+      const folderPath = path.join(uploadPath, folder);
+      const files = await fs.promises.readdir(folderPath);
+
+      if (files.length > 0) {
+        const firstImage = files[0];
+        const imagePath = path.join('uploads', folder, firstImage);
+        
+        // 아이템 아이디 쿼리
+        const query = `SELECT IID, IName, ICost, Category FROM ITEM WHERE ItemImage LIKE "%${firstImage}%"`;
+
+        return new Promise((resolve, reject) => {
+          db.query(query, (err, result) => {
+            if (err) {
+              reject(err);
+            } else {
+              if(result.length>0){
+                console.log(result[0].IName);
+                resolve({ path: imagePath, alt: folder, folderPath: folder, iID: result[0].IID, itemName: result[0].IName, itemCost: result[0].ICost, category: result[0].Category });
+                
+              }
+            }
+          });
+        });
+      }
+    });
+    
+    const images = await Promise.all(imagePromises);
+    const filteredImages = images.filter(image => image.category === value);
+    res.json(filteredImages);
+  } catch (err) {
+    console.error('Error reading folders or files:', err);
+    return res.status(500).send('Internal server error while fetching folders');
+  }
 
 });
 
@@ -201,7 +283,6 @@ app.get('/images', async (req, res) => {
     });
 
     const images = await Promise.all(imagePromises);
-
     res.json(images);
   } catch (err) {
     console.error('Error reading folders or files:', err);
@@ -232,7 +313,6 @@ app.get('/popular', async(req, res)=>{
             if (err) {
               reject(err);
             } else {
-              console.log("here: ", result);
               if (result.length > 0) {
                 resolve({
                   path: imagePath,
@@ -541,6 +621,47 @@ app.get('/items', (req, res) =>{
         });
         res.json({data:resultData});
       }
+    }
+  });
+});
+
+app.get('/orders',(req, res) =>{
+  const query = `SELECT cart.CartNumber, cart.UID, user.UID, cart.IID, cart.ItemCount, item.IName, user.phone_num, user.Email, (cart.ItemCount * item.ICost) AS total, user.Address
+  FROM cart
+  JOIN item ON item.IID = cart.IID
+  JOIN user ON user.UID = cart.UID
+  WHERE OrderStatus=1;`;
+
+  db.query(query, (err, result)=>{
+    if(err){
+      res.send("FAIlED to FETCH");
+    }else{
+      if(result.length > 0){
+        const resultData = [];
+        result.forEach(item => {
+          const cart = item.CartNumber;
+          const user = item.UID;
+          const itemID = item.IID;
+          const count = item.ItemCount;
+          const itemName = item.IName;
+          const contact = item.phone_num;
+          const email = item.Email;
+          const totalCost = item.total;
+          const addr = item.Address;
+          resultData.push({cart, user, itemID, count, itemName, contact, email, totalCost, addr});
+        });
+        res.json({reply: resultData});
+      }
+    }
+  });
+});
+app.post('/deleteOrder', (req, res)=>{
+  const query = `DELETE FROM cart WHERE CartNumber = ${req.body.order}`;
+  db.query(query, (err,results)=>{
+    if(err){
+      return res.json({result: "Fail"});
+    }else{
+      return res.json({result: "Success"});
     }
   });
 });

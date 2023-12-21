@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function () {
     const userID = document.getElementById('username_field');
     const password_a = document.getElementById('password_field');
@@ -56,16 +57,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if(phoneNum)
 
+        // fetch('/register', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/x-www-form-urlencoded',
+        //     },
+        //     body: `username=${username}&password=${password}&phoneNum=${phoneNum}&address=${address}&email=${temail}&sex=${tsex}`,
+        // })
         fetch('/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: `username=${username}&password=${password}&phoneNum=${phoneNum}&address=${address}&email=${temail}&sex=${tsex}`,
+            // URL-encode sensitive data to prevent injection attacks
+            body: new URLSearchParams({
+                username: username,
+                password: password,
+                phoneNum: phoneNum,
+                address: address,
+                email: temail,
+                sex: tsex,
+            }),
         })
         .then(response => response.text())
         .then(data =>{
+
             console.log(data);
+            if(data == "Bad Request: Invalid email address."){
+                alert("올바르지 않은 이메일 형식입니다.");
+                return;
+            }else if(data){
+                window.location.href = "login.html";
+            }
         })
         .catch(error => console.log(error));
 

@@ -1,4 +1,25 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    };
+    const isAdmin = () => {
+        const isAdminString = getCookie('isAdmin');
+        return isAdminString === 'true'; // Convert the string to a boolean
+    };
+    if(!isAdmin()){
+        document.body.style.display = 'none';
+        alert('Unauthorized access!');
+        window.location.href = 'main.html';
+
+        return;
+    }
+    console.log(isAdmin());
+
+
+
+
     const submitButton = document.getElementById('submit_item_info');
 
     submitButton.addEventListener('click', function(){

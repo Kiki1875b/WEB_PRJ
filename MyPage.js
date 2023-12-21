@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({UID: data.uname}),
             });
         } else {
-            usernameElement.textContent = "must be logged in";
+            usernameElement.textContent = "로그인 해주세요!";
         }
     })
     .then(response => response.json())
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if(data.extractedPaths.length == 0) {
             const nth = document.createElement('div');
-            nth.textContent = "NO ITEM IN CART";
+            nth.textContent = "장바구니가 비었습니다";
             contentsNewProductContainer.appendChild(nth);
         };
 
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             container.appendChild(cancelButton);
 
             const itemCount = document.createElement('div');
-            itemCount.textContent = `Item Count: ${item.ItemCount}`;
+            itemCount.textContent = `수량: ${item.ItemCount}`;
             container.appendChild(itemCount);
             
             const totalPriceForItem = document.createElement('div');
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         
         const overallTotal = document.createElement('div');
-        overallTotal.textContent = `Overall Total: ${totalCost}`;
+        overallTotal.textContent = `총 금액: ${totalCost}`;
         contentsNewProductContainer.appendChild(overallTotal);
         } else {
           console.log('No images to display');

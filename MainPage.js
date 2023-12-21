@@ -415,8 +415,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Example usage
     if (isAdmin()) {
-        const adminButton = document.createElement('button');
-        adminButton.textContent = 'Go to Admin Page';
+        const adminButton = document.createElement('img');
+        adminButton.setAttribute("src", "./assets/ph_plus-square-duotone.png");
+        adminButton.setAttribute("width", "35");
+        adminButton.setAttribute("height", "35");
+        
+        // adminButton.textContent = 'Go to Admin Page';
         adminButton.addEventListener('click', () => {
             window.location.href = 'temp.html';
         });
@@ -426,9 +430,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
         document.body.appendChild(adminButton);
         console.log('User is logged in as admin');
+        // Perform actions for admin users
     } else {
         console.log('User is not logged in as admin');
+        // Perform actions for non-admin users
     }
+
 
 
 

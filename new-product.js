@@ -100,92 +100,139 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => console.error("Error fetching imgs:", error));
 
 //////////////////
+function showDetailedInformation(folderPath, itemID) {
+    const currentUrl = window.location.href;
+    const newUrl = 'specific_page.html' + (currentUrl.includes('?') ? '&' : '?') + `folderPath=${encodeURIComponent(folderPath)}&IID=${encodeURIComponent(itemID)}`;
 
-    function showDetailedInformation(folderPath, itemID) {
-        const currentUrl = window.location.href;
-
-        
-        const newUrl = 'specific_page.html' + (currentUrl.includes('?') ? '&' : '?') + `folderPath=${encodeURIComponent(folderPath)}&IID=${encodeURIComponent(itemID)}`;
-    
-
-        const popup = window.open(newUrl, '_blank');
-        setTimeout(() =>{
+    const popup = window.open(newUrl, '_blank');
+    setTimeout(() => {
         fetch(`/images/${encodeURIComponent(folderPath)}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP ERROR! STATUS: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if(!popup || popup.closed) return;
-            popup.location.href = newUrl;
-            popup.document.write('<html><head><title>Detailed Information</title></head><body>');
-            popup.document.write('<h1> Detailed Information</h1>');
-            popup.document.write('<div class="popup" style="text-align: left;">'); 
-            
-            
-
-            const container = popup.document.createElement('div');
-            container.style.maxWidth = '400px'
-            data.folderImages.forEach(folderImage => {
-                const imgElement = popup.document.createElement('img');
-                imgElement.src = folderImage.path;
-                imgElement.alt = folderImage.alt;
-                
-                imgElement.width = 300;
-                imgElement.height = 300;
-
-                container.appendChild(imgElement);
-                
-            });
-            const addToCartButton = popup.document.createElement('button');
-            addToCartButton.textContent = 'Add to Cart';
-
-            const quantityInput = popup.document.createElement('input');
-            quantityInput.type = 'number';
-            quantityInput.min = '1';
-            quantityInput.value = '1'; 
-
-
-            addToCartButton.addEventListener('click', function() {
-                const quantity = parseInt(quantityInput.value, 10); 
-
-                if (isNaN(quantity) || quantity <= 0) {
-                    popup.alert('Please enter a valid quantity.');
-                    return;
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ERROR! STATUS: ${response.status}`);
                 }
-                fetch('check', {
-                    method: 'POST',
-                })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json(); // Parse the response as JSON
-                    } else {
-                        throw new Error(`HTTP ERROR! STATUS: ${response.status}`);
-                    }
-                })
-                .then(data => {
-                    if (data.status === true) {
-                        
-                        console.log("username: ", data.username);
-                        addToCart(data.uname, itemID, quantity);
-                    } else {
-                        popup.alert("must be logged in");
-                    }
-                })
-                .catch(error => console.error("CURRENT: ", error));
+                return response.json();
+            })
+            .then(data => {
+                if (!popup || popup.closed) return;
+                popup.location.href = newUrl;
+                popup.document.write('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="./styles/specific_page.css"><title>Detailed Information</title></head><body>');
+                popup.document.write("<img src=\"./assets/morning-glory-1.png\" onclick=\"location.href='main.html'\" alt=\"morning-glory-logo\" class=\"morning-glory-style\" id=\"logo\">");
+                popup.document.write('<div class="mainbar-style">');
+                popup.document.write("<button onclick=\"location.href='new-product.html'\" class=\"new-product-btn-style\">신상</button>");
+                popup.document.write("<button onclick=\"location.href='popular-products.html'\" class=\"popular-products-btn-style\">인기제품</button>");
+                popup.document.write("<button onclick=\"location.href='category.html'\" class=\"category-btn-style\">품목</button>");
+                popup.document.write('<div class="search-style">');
+                popup.document.write('<input type="text" placeholder="검색어를 입력해 주세요" name="searchTerm" id="searchTerm" class="search-text-style">');
+                popup.document.write("</div>");
+                popup.document.write("<button onclick=\"location.href='announcement.html'\" class=\"announcement-btn-style\">공지사항</button>");
+                popup.document.write("<button onclick=\"location.href='shopping-basket.html'\" class=\"shopping-basket-btn-style\">장바구니</button>");
+                popup.document.write("<button onclick=\"location.href='login.html'\" class=\"login-btn-style\">로그인</button>");
+                popup.document.write('</div>');
+                popup.document.write('<h1>상품추가</h1>');
+                
+                
+                const bigContainer = popup.document.createElement('div');
+                bigContainer.className = 'bigContainer';
 
-            });
-            popup.document.body.appendChild(quantityInput);
-            popup.document.body.appendChild(addToCartButton);
-            popup.document.body.appendChild(container);
-            popup.document.write('</div></body></html>');
-        })
-        .catch(error => console.error("Error fetching folder imgs: ", error));
-    },1000);
-        
-    }
+                const container = popup.document.createElement('div');
+                container.className = 'container';
+                
+                container.style.maxWidth = '400px';
+
+                const currentIndex = { value: 0 };
+
+                function showImage(index) {
+                    const folderImage = data.folderImages[index];
+                    const imgElement = popup.document.createElement('img');
+                    imgElement.src = folderImage.path;
+                    imgElement.alt = folderImage.alt;
+                    imgElement.width = 300;
+                    imgElement.height = 300;
+
+                    container.innerHTML = ''; // Clear previous content
+                    container.appendChild(imgElement);
+                }
+
+                
+                const addToCartButton = popup.document.createElement('button');
+                addToCartButton.className = 'addToCartButton';
+                addToCartButton.textContent = '장바구니 추가';
+
+                const quantityInput = popup.document.createElement('input');
+                quantityInput.className = 'quantityInput';
+                quantityInput.type = 'number';
+                quantityInput.min = '1';
+                quantityInput.value = '1'; // You can set a default value if needed
+
+
+                addToCartButton.addEventListener('click', function() {
+                    const quantity = parseInt(quantityInput.value, 10); 
+
+                    if (isNaN(quantity) || quantity <= 0) {
+                        popup.alert('Please enter a valid quantity.');
+                        return;
+                    }
+                    fetch('check', {
+                        method: 'POST',
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json(); // Parse the response as JSON
+                        } else {
+                            throw new Error(`HTTP ERROR! STATUS: ${response.status}`);
+                        }
+                    })
+                    .then(data => {
+                        // Now, 'data' contains the parsed JSON response
+                        if (data.status === true) {
+                            
+                            console.log("username: ", data.username);
+                            addToCart(data.uname, itemID, quantity);
+                        } else {
+                            popup.alert("must be logged in");
+                        }
+                    })
+                    .catch(error => console.error("CURRENT: ", error));
+                });
+                
+
+
+                showImage(currentIndex.value);
+
+                const prevButton = popup.document.createElement('button');
+                prevButton.className = 'prevButton';
+                //prevButton.textContent = 'Previous';
+                prevButton.addEventListener('click', function () {
+                    currentIndex.value = (currentIndex.value - 1 + data.folderImages.length) % data.folderImages.length;
+                    showImage(currentIndex.value);
+                });
+
+                const nextButton = popup.document.createElement('button');
+                nextButton.className = 'nextButton';
+                //nextButton.textContent = 'Next';
+                nextButton.addEventListener('click', function () {
+                    currentIndex.value = (currentIndex.value + 1) % data.folderImages.length;
+                    showImage(currentIndex.value);
+                });
+                
+                popup.document.body.appendChild(bigContainer);
+                bigContainer.appendChild(prevButton);
+                bigContainer.appendChild(container);
+                bigContainer.appendChild(nextButton)
+
+
+                // popup.document.body.appendChild(container);
+                // popup.document.body.appendChild(prevButton);
+                // popup.document.body.appendChild(nextButton);
+                popup.document.body.appendChild(quantityInput);
+                popup.document.body.appendChild(addToCartButton);
+                popup.document.write('<div class="bottombar-style">2023 WEB SW Studio and Talent Donation</div>');
+                popup.document.write('</body></html>');
+            })
+            .catch(error => console.error("Error fetching folder imgs: ", error));
+    }, 1000);
+}
 
 
 

@@ -11,19 +11,21 @@ const validator = require('validator');
 const app = express();
 
 
-const port = 3000;
-
+const port = 9000;
+app.set('port', process.env.PORT || 9000);
 // MySQL 연결 설정
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Gjwldnd!1',
+  host: 'mydb.c9mk84i2830p.ap-northeast-2.rds.amazonaws.com',
+  user: 'admin',
+  password: 'kau2018!',
   database: 'STATIONARY_STORE'
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/temp.html');
+  res.sendFile(__dirname + '/main.html');
 });
+
+app.use(express.static(__dirname));
 
 
 
@@ -80,7 +82,7 @@ app.post('/login', (req, res) => {
   const password = req.body.password;
 
   // Retrieve user information from MySQL
-  const sql = 'SELECT * FROM USER WHERE UID = ?'; // Only retrieve hashed password for comparison
+  const sql = 'SELECT * FROM user WHERE UID = ?'; // Only retrieve hashed password for comparison
   db.query(sql, [username], (err, result) => {
     if (err) throw err;
 
@@ -135,7 +137,7 @@ app.post('/register',(req,res)=> {
   const saltRounds = 10;
   const hashedPassword = bcrypt.hashSync(password, saltRounds);
 
-  const insertQuery = 'INSERT INTO USER (UID, PWD, phone_num, Address, Email, `Register Date`, Sex) VALUES (?, ?, ?, ?, ?, CURDATE(), ?)';
+  const insertQuery = 'INSERT INTO user (UID, PWD, phone_num, Address, Email, `Register Date`, Sex) VALUES (?, ?, ?, ?, ?, CURDATE(), ?)';
   const values = [username, hashedPassword, phoneNum, address, email, sex];
 
   if (!username) {
@@ -189,7 +191,7 @@ app.post('/selected', async (req, res) => {
         const imagePath = path.join('uploads', folder, firstImage);
         
         // 아이템 아이디 쿼리
-        const query = `SELECT IID, IName, ICost, Category FROM ITEM WHERE ItemImage LIKE "%${firstImage}%"`;
+        const query = `SELECT IID, IName, ICost, Category FROM item WHERE ItemImage LIKE "%${firstImage}%"`;
 
         return new Promise((resolve, reject) => {
           db.query(query, (err, result) => {
@@ -233,7 +235,7 @@ app.post('/upload', upload.array('item_image'), (req, res) => {
   const imagePaths = images.map(image => image.path);
 
   const imagePath = imagePaths.join(',');
-  const query = 'INSERT INTO ITEM (IName, ICost, ItemCount, Category, Color, DeliveryInfo, SoldCount, ItemImage) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)';
+  const query = 'INSERT INTO item (IName, ICost, ItemCount, Category, Color, DeliveryInfo, SoldCount, ItemImage) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)';
   
   db.query(
     query,
@@ -267,7 +269,7 @@ app.get('/images', async (req, res) => {
         const imagePath = path.join('uploads', folder, firstImage);
         console.log(firstImage);
         // 아이템 아이디 쿼리
-        const query = `SELECT IID, IName, ICost FROM ITEM WHERE ItemImage LIKE "%${firstImage}%"`;
+        const query = `SELECT IID, IName, ICost FROM item WHERE ItemImage LIKE "%${firstImage}%"`;
 
         return new Promise((resolve, reject) => {
           db.query(query, (err, result) => {
@@ -305,7 +307,7 @@ app.get('/popular', async(req, res)=>{
         const firstImage = files[0];
         const imagePath = path.join('uploads', folder, firstImage);
         // 아이템 아이디 쿼리
-        const query = `SELECT IID, IName, ICost, RegisterDate, SoldCount FROM ITEM WHERE ItemImage LIKE "%${firstImage}%" AND SoldCount > 400`;
+        const query = `SELECT IID, IName, ICost, RegisterDate, SoldCount FROM item WHERE ItemImage LIKE "%${firstImage}%" AND SoldCount > 400`;
 
 
         return new Promise((resolve, reject) => {
@@ -358,7 +360,7 @@ app.get('/new', async(req, res) => {
         const firstImage = files[0];
         const imagePath = path.join('uploads', folder, firstImage);
         // 아이템 아이디 쿼리
-        const query = `SELECT IID, IName, ICost, RegisterDate FROM ITEM WHERE ItemImage LIKE "%${firstImage}%" AND MONTH(RegisterDate) = MONTH(CURRENT_DATE)`;
+        const query = `SELECT IID, IName, ICost, RegisterDate FROM item WHERE ItemImage LIKE "%${firstImage}%" AND MONTH(RegisterDate) = MONTH(CURRENT_DATE)`;
 
 
         return new Promise((resolve, reject) => {
@@ -736,11 +738,13 @@ app.post('/deleteItem', (req, res) => {
 });
 
 
-app.use(express.static('C:/ww/WEB_PRJ'));
+const absolutePath = path.resolve('~/WEB_PRJ');
+
+app.use(express.static(absolutePath));
 
 
 // 서버 시작
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+var server = app.listen(app.get('port'), function () {
+  console.log('Server listening on port: ' + server.address().port); 
 });
 

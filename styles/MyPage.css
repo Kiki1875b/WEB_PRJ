@@ -191,3 +191,43 @@
     justify-content: center;
     background-color: #f6f6f6;
 }
+
+@media (max-width: 768px) {
+    .mainbar-style {
+        flex-wrap: wrap; 
+        text-align: center; 
+    }
+    
+    .search-style {
+        order: -1;
+        margin-bottom: 10px;
+        width: 100%;
+        padding: 5px;
+    }
+
+    .search-text-style {
+        width: 100%; 
+        box-sizing: border-box;
+        margin: 0 auto;
+        padding: 5px;
+    }
+
+    .new-product-btn-style,
+    .popular-products-btn-style,
+    .category-btn-style,
+    .announcement-btn-style,
+    .shopping-basket-btn-style,
+    .login-btn-style {
+        width: 45%; 
+        margin: 5px 1%; 
+    }
+    #entire-container {
+        flex-direction: column; /* Change the direction to column for mobile layout */	
+    }
+.contents-temp-product-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+}

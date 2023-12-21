@@ -254,3 +254,67 @@ input#check_btn_writing:checked + label:before, #check_btn_pencilcase:checked + 
     background-color: #f6f6f6;
 }
 
+@media (max-width: 768px) {
+    .mainbar-style {
+        flex-wrap: wrap; 
+        text-align: center; 
+    }
+    
+    .search-style {
+        order: -1;
+        margin-bottom: 10px;
+        width: 100%;
+        padding: 5px;
+    }
+
+    .search-text-style {
+        width: 100%; 
+        box-sizing: border-box;
+        margin: 0 auto;
+        padding: 5px;
+    }
+
+    .new-product-btn-style,
+    .popular-products-btn-style,
+    .category-btn-style,
+    .announcement-btn-style,
+    .shopping-basket-btn-style,
+    .login-btn-style {
+        width: 45%; 
+        margin: 5px 1%; 
+    }
+
+    .contents-all-product-style form {
+        display: none;
+    }
+
+    .contents-all-product-style {
+        display: flex;
+        flex-direction: column; /* Change the direction to column for vertical layout */
+        align-items: center; /* Center items horizontally */
+    }
+    .contents-container-with-header-style h1{
+	padding: 10px 0;
+	color: #FEC42E;
+        margin-left: 45%;
+        margin-top: 10px;
+	order: 1;
+    }
+
+    .filter-wrap {
+	justify-content: flex-start;
+        display: flex;
+        flex-direction: row; /* Arrange items in a row */
+	width: 100%;
+ 	padding: 10px 0;
+    }
+
+    .filter-wrap input[type="radio"] {
+        margin-right: 10px; /* Add spacing between radio buttons */
+	padding: 0 0 0 10px;
+    }
+
+    .filter-wrap label {
+        white-space: nowrap; /* Prevent label text from wrapping */
+    }
+}

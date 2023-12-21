@@ -288,3 +288,19 @@ input#check_btn:checked + label:before{
     justify-content: center;
     background-color: #f6f6f6;
 }
+
+@media (max-width: 768px) {
+    #main_holder {
+        width: 100%;
+        margin: 0;
+    }
+
+    #main_holder select,
+    #main_holder input {
+        width: 100%;
+    }
+
+    .bottombar-style {
+        font-size: 1.5rem;
+    }
+}

@@ -147,7 +147,7 @@ app.post('/register',(req,res)=> {
 
   if (!validator.isEmail(email)) {
     // 이메일 유효성 검사 실패
-    console.log("!");
+  
     return res.status(400).send("Bad Request: Invalid email address.");
   }
 
@@ -168,7 +168,6 @@ app.post('/register',(req,res)=> {
 app.post('/selected', async (req, res) => {
   const category = req.body.category;
   let value = '';
-  console.log(category);
   if(category == 'writing-materials'){
     value = '필기구';
   }else if(category == 'office-materials'){
@@ -199,7 +198,6 @@ app.post('/selected', async (req, res) => {
               reject(err);
             } else {
               if(result.length>0){
-                console.log(result[0].IName);
                 resolve({ path: imagePath, alt: folder, folderPath: folder, iID: result[0].IID, itemName: result[0].IName, itemCost: result[0].ICost, category: result[0].Category });
                 
               }
@@ -242,7 +240,6 @@ app.post('/upload', upload.array('item_image'), (req, res) => {
     [item_name, item_cost, item_count, item_category, item_color, delivery_info, 0, imagePath],
     (err, result) => {
       if (err) {
-        console.error(err);
         res.status(500).send('Internal Server Error');
       } else {
         res.status(200).send('Data Inserted');
@@ -267,8 +264,6 @@ app.get('/images', async (req, res) => {
       if (files.length > 0) {
         const firstImage = files[0];
         const imagePath = path.join('uploads', folder, firstImage);
-        console.log(firstImage);
-        // 아이템 아이디 쿼리
         const query = `SELECT IID, IName, ICost FROM item WHERE ItemImage LIKE "%${firstImage}%"`;
 
         return new Promise((resolve, reject) => {
@@ -380,7 +375,7 @@ app.get('/new', async(req, res) => {
                   registerDate: result[0].RegisterDate,
                   soldCount: result[0].SoldCount,
                 });
-                console.log(result[0].ICost);
+
               } else {
                 resolve({}); 
               }
@@ -436,8 +431,6 @@ app.post('/addToCartEndpoint', (req, res) => {
       if(results.length > 0){
         itemCount = results[0].ItemCount;
 
-        console.log(results);
-        
         const query = 'UPDATE CART SET ItemCount='+(itemCount+quantity) +' WHERE IID="'+itemID+'" AND OrderStatus = FALSE';
         db.query(query,(err,result)=>{
           if(err){
@@ -529,7 +522,6 @@ app.post('/cart', (req, res) => {
               ICost: pathResult.ICost  
             };
           });
-          console.log("EXTRACTED: ", extractedPaths);
           res.json({ extractedPaths });
         }
       });
@@ -584,10 +576,8 @@ app.get('/search', (req, res) => {
           const iCost = item.ICost;
           const itemPath = item.ItemImage;
           const firstPart = itemPath.split(',')[0];
-          console.log(`Item ID: ${firstPart}, Item Name: ${iName}, Item Cost: ${iCost}`);
           resultData.push({ iid, iName, iCost, firstPart, });
     });
-    console.log(resultData);
     res.json({data: resultData});
   }
 }
@@ -601,7 +591,6 @@ app.get('/items', (req, res) =>{
       res.status(500).json({status: error});
     }else{
       if(result.length > 0){
-        console.log("?");
         const resultData = [];
         result.forEach(item => {
           const iid = item.IID;
@@ -619,7 +608,7 @@ app.get('/items', (req, res) =>{
           const soldCount = item.SoldCount;
           const registerDate = item.RegisterDate;
           resultData.push({iid,iName,iCost,firstPart,category,soldCount,registerDate,});
-          console.log(registerDate);
+
         });
         res.json({data:resultData});
       }
@@ -670,7 +659,6 @@ app.post('/deleteOrder', (req, res)=>{
 
 app.post('/updateItem', upload.array('imageFile'), (req, res) => {
   const id = req.body.itemName;
-  console.log(id);
   const images = req.files;
   const imagePaths = images.map(image => image.path);
   const imagePath = imagePaths.join(',');
@@ -702,7 +690,6 @@ app.post('/insertItem', (req, res) => {
       if(err){
         return res.status(err);
       }else{
-        console.log(query);
         return res.json({s: 'Success'});
       }
     })
@@ -710,7 +697,6 @@ app.post('/insertItem', (req, res) => {
 });
 
 app.post('/deleteItem', (req, res) => {
-  console.log(req.body.ID);
   const toBeDeleted = req.body.name;
   const path = `C:/ww/WEB_PRJ/uploads/${toBeDeleted}`; // 경로에 맞게 설정!!
 

@@ -284,6 +284,8 @@ document.addEventListener('DOMContentLoaded', () => {
         orderButton.textContent = '주문하기';
 
         orderButton.addEventListener('click', () => {
+	     alert('주문 완료!')
+	    window.location.reload();
             orderFromCart(cartNumbers);
         });
 

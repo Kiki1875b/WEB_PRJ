@@ -27,6 +27,8 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(images => {
             console.log("A");
             const top = document.querySelector('.contents-new-product-container');
+	    top.innerHTML='';
+
             images.forEach(image => {
                 const container = document.createElement('div');
                 container.classList.add('contents-new-product-one-style', 'contents-new-product-container-border');

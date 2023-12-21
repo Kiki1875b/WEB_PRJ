@@ -1,4 +1,8 @@
 {
+  "name": "WEB_PRJ",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "barcode": "^0.0.4",
     "bcrypt": "^5.1.1",

@@ -1,22 +1,114 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>My Page</title>-->
+<!--    <script defer src="MyPage.js"></script>-->
+<!--    <style>-->
+<!--        #imageContainer {-->
+<!--            overflow: auto; /* Add overflow property to enable scrolling if the content exceeds the size limit */-->
+<!--        }-->
+
+<!--        #imageContainer img {-->
+<!--            max-width: 200px;-->
+<!--            max-height: 200px;-->
+<!--            height: auto;-->
+<!--        }-->
+<!--    </style>-->
+<!--    <link rel="stylesheet" href="./styles/main.css">-->
+<!--</head>-->
+
+<!--<body>-->
+<!--<img src="./assets/morning-glory-1.png" onclick="location.href='main.html'" alt="morning-glory-logo" class="morning-glory-style" id="logo">-->
+<!--<div class="mainbar-style">-->
+<!--    <button onclick="location.href='new-product.html'" class="new-product-btn-style">신상</button>-->
+<!--    <button onclick="location.href='popular-products.html'" class="popular-products-btn-style">인기제품</button>-->
+<!--    <button onclick="location.href='category.html'" class="category-btn-style">품목</button>-->
+
+<!--    <div class="search-style">-->
+<!--        <input type="text" placeholder="검색어를 입력해 주세요" name="searchTerm" id="searchTerm" class="search-text-style">-->
+<!--    </div>-->
+
+<!--    <button onclick="location.href='announcement.html'" class="announcement-btn-style">공지사항</button>-->
+<!--    <button onclick="location.href='MyPage.html'" class="shopping-basket-btn-style">마이페이지</button>-->
+<!--    <button onclick="location.href='login.html'" class="login-btn-style">로그인</button>-->
+<!--</div>-->
+
+<!--<div id="entire-container">-->
+<!--    <div id="userInfoContainer-plus-username">-->
+<!--        &lt;!&ndash; <h1 id="username"></h1>  &ndash;&gt;-->
+<!--        <img src="/assets/healthicons_ui-user-profile.png" alt="user-profile">-->
+<!--        <div id="userInfoContainer">-->
+<!--            <p><strong>이름(아이디):</strong> <span id="username"></span></p>-->
+<!--            <p><strong>전화번호:</strong> <span id="phoneNumber"></span></p>-->
+<!--            <p><strong>주소:</strong> <span id="address"></span></p>-->
+<!--            <p><strong>이메일:</strong> <span id="email"></span></p>-->
+<!--            <p><strong>등록날짜:</strong> <span id="registerDate"></span></p>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="contents-new-product-style">-->
+<!--        <div class="contents-temp-product-container"></div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div id="entire-container-no-login">  &lt;!&ndash;로그인 안하면 이 div가 출력됩니다&ndash;&gt;-->
+<!--    <img src="./assets/error-caution.png" alt="에러로고">-->
+<!--    <h1>로그인 해주세요!</h1>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; <h1 id="username"></h1>-->
+
+<!--<div id="userInfoContainer">-->
+<!--    <p><strong>Address:</strong> <span id="address"></span></p>-->
+<!--    <p><strong>Phone Number:</strong> <span id="phoneNumber"></span></p>-->
+<!--    <p><strong>Email:</strong> <span id="email"></span></p>-->
+<!--    <p><strong>Register Date:</strong> <span id="registerDate"></span></p>-->
+<!--</div> &ndash;&gt;-->
+
+
+<!--&lt;!&ndash; <div class="contents-new-product-style">-->
+<!--    <div class="contents-temp-product-container">-->
+<!--        <div class="contents-new-product-one-style" id="imageContainer"></div>-->
+<!--    </div>-->
+<!--</div> &ndash;&gt;-->
+
+<!--<div class="bottombar-style">2023 WEB SW Studio and Talent Donation</div>-->
+<!--</body>-->
+
+
+
+
+
+
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+<!--&lt;!&ndash;<h1 id="username"></h1>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div id="userInfoContainer">&ndash;&gt;-->
+<!--&lt;!&ndash;    <p><strong>Address:</strong> <span id="address"></span></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p><strong>Phone Number:</strong> <span id="phoneNumber"></span></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p><strong>Email:</strong> <span id="email"></span></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p><strong>Register Date:</strong> <span id="registerDate"></span></p>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div class="contents-new-product-style">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="contents-temp-product-container">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="contents-new-product-one-style" id="imageContainer">&ndash;&gt;-->
+
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/MyPage.css">
     <title>My Page</title>
     <script defer src="MyPage.js"></script>
-    <style>
-        #imageContainer {
-            overflow: auto; /* Add overflow property to enable scrolling if the content exceeds the size limit */
-        }
-
-        #imageContainer img {
-            max-width: 200px;
-            max-height: 200px;
-            height: auto;
-        }
-    </style>
-    <link rel="stylesheet" href="./styles/main.css">
 </head>
 
 <body>
@@ -76,27 +168,3 @@
 
 <div class="bottombar-style">2023 WEB SW Studio and Talent Donation</div>
 </body>
-
-
-
-
-
-
-<!--<body>-->
-<!--<h1 id="username"></h1>-->
-
-<!--<div id="userInfoContainer">-->
-<!--    <p><strong>Address:</strong> <span id="address"></span></p>-->
-<!--    <p><strong>Phone Number:</strong> <span id="phoneNumber"></span></p>-->
-<!--    <p><strong>Email:</strong> <span id="email"></span></p>-->
-<!--    <p><strong>Register Date:</strong> <span id="registerDate"></span></p>-->
-<!--</div>-->
-
-<!--<div class="contents-new-product-style">-->
-<!--    <div class="contents-temp-product-container">-->
-<!--        <div class="contents-new-product-one-style" id="imageContainer">-->
-
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--</body>-->
